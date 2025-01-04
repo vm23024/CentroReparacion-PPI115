@@ -1,0 +1,4 @@
+node_modules
+QueryAuditor.sql
+dist
+.env
