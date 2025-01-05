@@ -1,4 +1,5 @@
 import { getConnection } from './../database/database';
+import { getUrlServicio } from './../extpost/getUrlServicio';
 
 const getSelloMh = async (token,
     dteFirmado,
@@ -8,6 +9,7 @@ const getSelloMh = async (token,
     version,
     codigoGen) => {
     const conexion = await getConnection();
+    const url = getUrlServicio('AUTORIZAR', 'sccsv_2017')
     return new Promise((resolve, reject) => {
         let data = JSON.stringify({
             "ambiente": ambiente,

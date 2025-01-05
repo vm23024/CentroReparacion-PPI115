@@ -1,9 +1,9 @@
 import { getConnection } from './../database/database';
-//import { getUrlServicio } from './getUrlServicio'; 
+import { getUrlServicio } from './getUrlServicio'; 
 
 const getTokenMh = async (fecha) => {
     const conexion = await getConnection();
-    const urlAutorizar = "https://api.dtes.mh.gob.sv/seguridad/auth";//await getUrlServicio('AUTORIZAR');
+    const urlAutorizar = await getUrlServicio('AUTORIZAR');//"https://api.dtes.mh.gob.sv/seguridad/auth";
     return new Promise((resolve, reject) => {
         let token; //variable que retornara el token solicitado
 
@@ -53,7 +53,7 @@ const getTokenMh = async (fecha) => {
                             xhr.withCredentials = true;
 
                             //console.log("Url: " + urlAutorizar);
-                            xhr.open("POST", "https://api.dtes.mh.gob.sv/seguridad/auth?user=" + usuario + "&pwd=" + passwd);
+                            xhr.open("POST", urlAutorizar+"?user=" + usuario + "&pwd=" + passwd);
                             xhr.setRequestHeader("user", usuario);
                             xhr.setRequestHeader("pwd", passwd);
                             xhr.responseType = 'json';
@@ -203,6 +203,7 @@ const getTokenMh = async (fecha) => {
                 return;
             }
         });*/
+        getConnection.end();
     });
 
     //console.log(result);
