@@ -16,11 +16,12 @@ var getUrlServicio = /*#__PURE__*/function () {
         case 2:
           conn = _context.sent;
           return _context.abrupt("return", new Promise(function (resolve, reject) {
-            var sql = "SELECT CONCAT(CONCAT(id_protocolo,'://'), id_mh_api) AS url " + "FROM empresa.emp_mh_apis WHERE id_mh_tipo_api = '" + tipoApi + "' " + "AND nombre_db = '" + empresa + "'";
+            var sql = "SELECT CONCAT(CONCAT(id_protocolo,'://'), id_mh_api) AS url " + "FROM empresas.emp_mh_apis WHERE id_mh_tipo_api = '" + tipoApi + "' " + "AND nombre_db = '" + empresa + "'";
             conn.query(sql, function (err, rows, fields) {
               if (!err) {
                 if (rows.length > 0) {
                   resolve(rows[0].url);
+                  //console.log("direccion: "+rows[0].url);
                 }
               } else {
                 console.log("error :" + err);
@@ -28,6 +29,7 @@ var getUrlServicio = /*#__PURE__*/function () {
                 reject("error :" + err);
               }
             });
+            //conn.end();
           }));
         case 4:
         case "end":
@@ -39,6 +41,6 @@ var getUrlServicio = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
-module["export"] = {
+module.exports = {
   getUrlServicio: getUrlServicio
 };

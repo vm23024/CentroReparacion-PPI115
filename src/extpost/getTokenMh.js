@@ -1,9 +1,9 @@
 import { getConnection } from './../database/database';
-import { getUrlServicio } from './getUrlServicio'; 
+import * as lib from './getUrlServicio'; 
 
 const getTokenMh = async (fecha) => {
     const conexion = await getConnection();
-    const urlAutorizar = await getUrlServicio('AUTORIZAR');//"https://api.dtes.mh.gob.sv/seguridad/auth";
+    const urlAutorizar = await lib.getUrlServicio('AUTORIZAR', 'sccsv_2017'); //await getUrlServicio('AUTORIZAR', 'sccsv_2017');//"https://api.dtes.mh.gob.sv/seguridad/auth";
     return new Promise((resolve, reject) => {
         let token; //variable que retornara el token solicitado
 
@@ -97,7 +97,9 @@ const getTokenMh = async (fecha) => {
                                     resolve(token);
 
                                 } else {
-                                    console.log(`Error no regresaron token: ${xhr.status}`);
+                                    console.log(`Error no regresaron token: ${Object.values(urlAutorizar)}`);
+                                    reject("Error al regresar token: "+Object.values(xhr));
+                                    conexion.end();
                                 }
                             }
                             xhr.onerror = (e) => {
@@ -138,7 +140,7 @@ const getTokenMh = async (fecha) => {
                         xhr.withCredentials = true;
 
                         console.log("Url: " + urlAutorizar);
-                        xhr.open("POST", "https://api.dtes.mh.gob.sv/seguridad/auth?user=" + usuario + "&pwd=" + passwd);
+                        xhr.open("POST", urlAutorizar+"?user=" + usuario + "&pwd=" + passwd);
                         xhr.setRequestHeader("user", usuario);
                         xhr.setRequestHeader("pwd", passwd);
                         xhr.responseType = 'json';
@@ -203,9 +205,9 @@ const getTokenMh = async (fecha) => {
                 return;
             }
         });*/
-        getConnection.end();
+        
     });
-
+    
     //console.log(result);
 
 
