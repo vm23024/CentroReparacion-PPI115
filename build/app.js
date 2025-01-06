@@ -25,7 +25,7 @@ var config = {
   }
 };
 var app = (0, _express["default"])();
-var PORT = process.env.PORT || 4002;
+var PORT = 4002;
 app.set("port", PORT);
 app.use((0, _morgan["default"])("dev"));
 app.use(_express["default"].json());
