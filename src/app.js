@@ -23,7 +23,7 @@ const config = {
 };
 
 const app = express();
-const PORT = 4002
+const PORT = 4002;
 
 app.set("port", PORT);
 

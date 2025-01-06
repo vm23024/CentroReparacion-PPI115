@@ -1,7 +1,7 @@
 import {config} from "dotenv";
 config();
 console.log("Usuario: "+process.env.USER_HDO);
-console.log("Puerto: "+process.env.PORT);
+console.log("Puerto: "+process.env.PORT_HDO);
 export default{
     host: process.env.HOST || "",
     database: process.env.DB_HDO || "",
@@ -11,7 +11,7 @@ export default{
         cors: {
             server: [
                 {
-                    origin: "localhost:"+process.env.PORT,
+                    origin: "localhost:"+process.env.PORT_HDO,
                     credentials: false
                 }
             ]
