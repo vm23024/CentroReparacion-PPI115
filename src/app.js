@@ -23,7 +23,7 @@ const config = {
 };
 
 const app = express();
-const PORT = process.env.PORT || 4003
+const PORT = process.env.PORT || 4002
 
 app.set("port", PORT);
 
