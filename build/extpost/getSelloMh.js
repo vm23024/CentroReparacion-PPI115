@@ -33,7 +33,7 @@ var getSelloMh = /*#__PURE__*/function () {
             xhr.setRequestHeader("Accept", "application/json");
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.setRequestHeader("Authorization", token);
-            //xhr.responseText = 'json';
+            xhr.responseText = 'json';
             //console.log("Token enviado: "+token);
             xhr.send(data);
             xhr.onload = function () {
@@ -56,7 +56,7 @@ var getSelloMh = /*#__PURE__*/function () {
                 }
               } else {
                 console.log("Estados readyState: " + xhr.readyState);
-                console.log("Estado estatus: " + xhr.getAllResponseHeaders);
+                console.log("Estado estatus: " + xhr.response);
                 if (xhr.readyState === 4 && xhr.status === 400) {
                   reject("No se ha podido sellar: " + Object.keys(xhr));
                 }

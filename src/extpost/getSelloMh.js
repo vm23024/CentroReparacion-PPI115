@@ -26,7 +26,7 @@ const getSelloMh = async (token,
         xhr.setRequestHeader("Accept", "application/json");
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.setRequestHeader("Authorization", token);
-        //xhr.responseText = 'json';
+        xhr.responseText = 'json';
         //console.log("Token enviado: "+token);
         xhr.send(data);
         xhr.onload = () => {
@@ -59,7 +59,7 @@ const getSelloMh = async (token,
                 }
             } else {
                 console.log("Estados readyState: "+xhr.readyState);
-                console.log("Estado estatus: "+xhr.getAllResponseHeaders);
+                console.log("Estado estatus: "+xhr.response);
                 if(xhr.readyState === 4 && xhr.status === 400){
                     reject("No se ha podido sellar: "+Object.keys(xhr));
                 }
