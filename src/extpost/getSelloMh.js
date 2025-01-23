@@ -10,6 +10,7 @@ const getSelloMh = async (token,
     codigoGen) => {
     const conexion = await getConnection();
     const url = getUrlServicio('AUTORIZAR', 'sccsv_2017');
+    const urlSello = getUrlServicio('SELLAR', 'sccsv_2017');
     return new Promise((resolve, reject) => {
         let data = JSON.stringify({
             "ambiente": ambiente,
@@ -21,7 +22,7 @@ const getSelloMh = async (token,
         var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
-        xhr.open("POST", "https://api.dtes.mh.gob.sv/fesv/recepciondte");
+        xhr.open("POST", urlSello);
         xhr.setRequestHeader("Accept", "application/json");
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.setRequestHeader("Authorization", token);
