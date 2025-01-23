@@ -27,7 +27,7 @@ const getSelloMh = async (token,
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.setRequestHeader("Authorization", token);
         //xhr.responseText = 'json';
-        console.log("Token enviado: "+token);
+        //console.log("Token enviado: "+token);
         xhr.send(data);
         xhr.onload = () => {
             //console.log("Entrando en onload");
@@ -86,7 +86,7 @@ const getSelloMh = async (token,
                     //console.log("Se actualiza lo rechazado: "+actualizar);
                     
                 }catch(e){
-                    console.log("Errores de json: "+e);
+                    console.log("Errores de json con token?: "+e);
                     console.log("Objecto de json: "+Object.keys(xhr));
                     reject("Errores de json: "+xhr.responseText);
                 }

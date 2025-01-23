@@ -34,7 +34,7 @@ var getSelloMh = /*#__PURE__*/function () {
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.setRequestHeader("Authorization", token);
             //xhr.responseText = 'json';
-            console.log("Token enviado: " + token);
+            //console.log("Token enviado: "+token);
             xhr.send(data);
             xhr.onload = function () {
               //console.log("Entrando en onload");
@@ -71,7 +71,7 @@ var getSelloMh = /*#__PURE__*/function () {
                   //console.log("Se actualizo en base de datos: " + respuesta2.estado);
                   //console.log("Se actualiza lo rechazado: "+actualizar);
                 } catch (e) {
-                  console.log("Errores de json: " + e);
+                  console.log("Errores de json con token?: " + e);
                   console.log("Objecto de json: " + Object.keys(xhr));
                   reject("Errores de json: " + xhr.responseText);
                 }
