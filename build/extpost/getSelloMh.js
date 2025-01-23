@@ -57,6 +57,7 @@ var getSelloMh = /*#__PURE__*/function () {
               } else {
                 console.log("Estados readyState: " + xhr.readyState);
                 console.log("Estado estatus: " + xhr.responseText);
+                reject("No se ha podido sellar: " + xhr.responseText);
                 /*try {
                     let respuesta2 = JSON.parse(xhr.responseText);
                     let fechaProcesado = respuesta2.fhProcesamiento.split(' ');
