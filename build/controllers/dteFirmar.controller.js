@@ -76,7 +76,7 @@ var getFirma = /*#__PURE__*/function () {
                   //console.log("Entrando en onload");
                   if (xhr.readyState == 4 && xhr.status == 200) {
                     var respuesta = JSON.parse(xhr.responseText);
-                    console.log("Firmas:" + Object.keys(respuesta));
+                    console.log("Firmas:" + Object.values(respuesta));
                     //response.json(respuesta);
                     /* let fechaProcesado = respuesta.fhProcesamiento.split(' ');
                      let fechaHora = fechaProcesado[0].split('/');*/
