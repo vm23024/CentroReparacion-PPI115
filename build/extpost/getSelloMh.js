@@ -71,7 +71,7 @@ var getSelloMh = /*#__PURE__*/function () {
                   //console.log("Se actualizo en base de datos: " + respuesta2.estado);
                   //console.log("Se actualiza lo rechazado: "+actualizar);
                 } catch (e) {
-                  console.log("Errores de json con token?: " + e);
+                  console.log("Errores de json con token?: " + token);
                   console.log("Objecto de json: " + Object.keys(xhr));
                   reject("Errores de json: " + xhr.responseText);
                 }

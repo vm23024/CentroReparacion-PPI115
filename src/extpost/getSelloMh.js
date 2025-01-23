@@ -86,7 +86,7 @@ const getSelloMh = async (token,
                     //console.log("Se actualiza lo rechazado: "+actualizar);
                     
                 }catch(e){
-                    console.log("Errores de json con token?: "+e);
+                    console.log("Errores de json con token?: "+token);
                     console.log("Objecto de json: "+Object.keys(xhr));
                     reject("Errores de json: "+xhr.responseText);
                 }
