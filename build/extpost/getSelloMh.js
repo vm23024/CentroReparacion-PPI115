@@ -55,26 +55,40 @@ var getSelloMh = /*#__PURE__*/function () {
                   console.log("Respuesta: " + xhr.responseText);
                 }
               } else {
-                try {
-                  var respuesta2 = JSON.parse(xhr.responseText);
-                  var _fechaProcesado = respuesta2.fhProcesamiento.split(' ');
-                  var _fechaHora = _fechaProcesado[0].split('/');
-                  if (respuesta2.codigoMsg === '095' || respuesta2.codigoMsg === '097') {
-                    respuesta2.estado = 'PENDIENTE';
-                  }
-                  var _actualizar = "UPDATE scc_dtes_creados " + "SET sello_recibido = '" + respuesta2.selloRecibido + "'" + ", estado = '" + respuesta2.estado + "'" + ", fecha_procesado = '" + _fechaHora[2] + "-" + _fechaHora[1] + "-" + _fechaHora[0] + " " + _fechaProcesado[1] + "'" + ", observaciones = 'codigo: " + respuesta2.codigoMsg + "\n\rdescripcionMensaje: " + respuesta2.descripcionMsg + "\n\rObservaciones: " + respuesta2.observaciones + "'" + ", firma_recibida = '" + dteFirmado + "'" + " WHERE codigo_generado = '" + codigoGen + "'" + " AND tipo_dte = '" + tipoDte + "'" + " AND codigo_control = '" + codigoControl + "'";
-                  var _actualizado = conexion.query(_actualizar, function (error, results) {
-                    if (error) throw error;
-                    console.log("Actualizado: ", results);
-                    resolve(respuesta2.estado);
-                  });
-                  //console.log("Se actualizo en base de datos: " + respuesta2.estado);
-                  //console.log("Se actualiza lo rechazado: "+actualizar);
-                } catch (e) {
-                  console.log("Errores de json con token?: " + token);
-                  console.log("Objecto de json: " + Object.keys(xhr));
-                  reject("Errores de json: " + xhr.responseText);
-                }
+                console.log("Estados readyState: " + xhr.readyState);
+                console.log("Estado estatus: ".xhr.status);
+                /*try {
+                    let respuesta2 = JSON.parse(xhr.responseText);
+                    let fechaProcesado = respuesta2.fhProcesamiento.split(' ');
+                    let fechaHora = fechaProcesado[0].split('/');
+                    if(respuesta2.codigoMsg === '095' || respuesta2.codigoMsg === '097'){
+                        respuesta2.estado = 'PENDIENTE';
+                    }
+                    let actualizar = "UPDATE scc_dtes_creados "
+                        + "SET sello_recibido = '" + respuesta2.selloRecibido + "'"
+                        + ", estado = '" + respuesta2.estado + "'"
+                        + ", fecha_procesado = '" + fechaHora[2] + "-" + fechaHora[1] + "-" + fechaHora[0] + " " + fechaProcesado[1] + "'"
+                        + ", observaciones = 'codigo: " + respuesta2.codigoMsg
+                        + "\n\rdescripcionMensaje: " + respuesta2.descripcionMsg
+                        + "\n\rObservaciones: " + respuesta2.observaciones + "'"
+                        + ", firma_recibida = '" + dteFirmado + "'"
+                        + " WHERE codigo_generado = '" + codigoGen + "'"
+                        + " AND tipo_dte = '" + tipoDte + "'"
+                        + " AND codigo_control = '" + codigoControl + "'";
+                    let actualizado = 
+                    conexion.query(actualizar, function(error, results){
+                        if(error) throw error;
+                        console.log("Actualizado: ", results);
+                        resolve(respuesta2.estado);
+                    });
+                    //console.log("Se actualizo en base de datos: " + respuesta2.estado);
+                    //console.log("Se actualiza lo rechazado: "+actualizar);
+                    
+                }catch(e){
+                    console.log("Errores de json con token?: "+token);
+                    console.log("Objecto de json: "+e);
+                    reject("Errores de json: "+xhr.responseText);
+                }*/
               }
             };
           }));

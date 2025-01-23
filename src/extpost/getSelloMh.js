@@ -58,7 +58,9 @@ const getSelloMh = async (token,
                     console.log("Respuesta: " + xhr.responseText);
                 }
             } else {
-                try {
+                console.log("Estados readyState: "+xhr.readyState);
+                console.log("Estado estatus: ".xhr.status);
+                /*try {
                     let respuesta2 = JSON.parse(xhr.responseText);
                     let fechaProcesado = respuesta2.fhProcesamiento.split(' ');
                     let fechaHora = fechaProcesado[0].split('/');
@@ -87,9 +89,9 @@ const getSelloMh = async (token,
                     
                 }catch(e){
                     console.log("Errores de json con token?: "+token);
-                    console.log("Objecto de json: "+Object.keys(xhr));
+                    console.log("Objecto de json: "+e);
                     reject("Errores de json: "+xhr.responseText);
-                }
+                }*/
                 
             }
         };
