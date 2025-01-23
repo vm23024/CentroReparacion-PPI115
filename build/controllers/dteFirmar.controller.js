@@ -91,7 +91,7 @@ var getFirma = /*#__PURE__*/function () {
                           response.status(500);
                           response.send("Errores: " + err);
                         } else {
-                          console.log("Se agrego fila:" + Object.values(result));
+                          //console.log("Se agrego fila:" + Object.values(result));
                           var sello = (0, _getSelloMh.getSelloMh)(token, respuesta.body, jsonFirmar.identificacion.ambiente, jsonFirmar.identificacion.tipoDte, solicitudes.con, jsonFirmar.identificacion.version, jsonFirmar.identificacion.codigoGeneracion);
                           if (sello == "RECHAZADO") {
                             var consulta = (0, _consultaDte.consultaDte)(jsonFirmar.identificacion.codigoGeneracion, jsonFirmar.identificacion.tipoDte, token);

@@ -79,7 +79,7 @@ const getFirma = async (request, response) => {
                                         response.status(500);
                                         response.send("Errores: " + err);
                                     } else {
-                                        console.log("Se agrego fila:" + Object.values(result));
+                                        //console.log("Se agrego fila:" + Object.values(result));
                                         let sello = getSelloMh(
                                             token,
                                             respuesta.body,
