@@ -61,7 +61,7 @@ const getFirma = async (request, response) => {
                         if (xhr.readyState == 4 && xhr.status == 200) {
                             let respuesta = JSON.parse(xhr.responseText);
 
-                            console.log("Firmas:"+Object.values(respuesta));
+                            //console.log("Firmas:"+Object.values(respuesta));
                             //response.json(respuesta);
                             /* let fechaProcesado = respuesta.fhProcesamiento.split(' ');
                              let fechaHora = fechaProcesado[0].split('/');*/
@@ -71,7 +71,7 @@ const getFirma = async (request, response) => {
                                     + "WHERE codigo_control = '" + solicitudes.gen + "' AND "
                                     + "codigo_control = '" + solicitudes.con + "' AND "
                                     + "tipo_dte = '" + solicitudes.tipo + "'";
-                                //console.log("update: "+update);
+                                console.log("update: "+update);
                                 //Guardar json firmado
                                 let actualizado = con.query(update, function (err, result) {
                                     if (err) {

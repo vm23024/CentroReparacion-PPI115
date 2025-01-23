@@ -76,13 +76,14 @@ var getFirma = /*#__PURE__*/function () {
                   //console.log("Entrando en onload");
                   if (xhr.readyState == 4 && xhr.status == 200) {
                     var respuesta = JSON.parse(xhr.responseText);
-                    console.log("Firmas:" + Object.values(respuesta));
+
+                    //console.log("Firmas:"+Object.values(respuesta));
                     //response.json(respuesta);
                     /* let fechaProcesado = respuesta.fhProcesamiento.split(' ');
                      let fechaHora = fechaProcesado[0].split('/');*/
                     try {
                       var update = "UPDATE scc_dtes_creados " + "SET firma_recibida = '" + respuesta.body + "' " + "WHERE codigo_control = '" + solicitudes.gen + "' AND " + "codigo_control = '" + solicitudes.con + "' AND " + "tipo_dte = '" + solicitudes.tipo + "'";
-                      //console.log("update: "+update);
+                      console.log("update: " + update);
                       //Guardar json firmado
                       var actualizado = con.query(update, function (err, result) {
                         if (err) {
