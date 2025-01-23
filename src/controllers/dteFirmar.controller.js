@@ -2,11 +2,13 @@ import { getConnection } from '../database/database';
 import { getTokenMh } from '../extpost/getTokenMh';
 import { getSelloMh } from '../extpost/getSelloMh';
 import { consultaDte } from '../extpost/consultaDte';
+import { getUrlServicio } from '../extpost/getUrlServicio';
 
 const getFirma = async (request, response) => {
     let solicitudes = request.query;
     //console.log("getest: "+solicitudes.gen);
     var con = await getConnection();
+    const urlFirma = await getUrlServicio('FIRMAR', 'sccsv_2017');
     //Solicito token
     var fecha_token = new Date();
     var token = await getTokenMh(fecha_token.getFullYear() + "-" + ("0" + (fecha_token.getMonth() + 1)).slice(-2) + "-" + ("0" + fecha_token.getDate()).slice(-2));
@@ -38,7 +40,7 @@ const getFirma = async (request, response) => {
                 try {
                     var jsonFirmar = JSON.parse(datos[0].json_creado);    //Solicitar firma
                     jsonFirmar.identificacion.numeroControl = solicitudes.con;
-                    let urlFirma = "http://65.111.166.70:8113/firmardocumento/";
+                    //let urlFirma = "http://65.111.166.70:8113/firmardocumento/";
                     let data = JSON.stringify({
                         "nit": credenciales[0].nit,
                         "passwordPri": credenciales[0].psw,
