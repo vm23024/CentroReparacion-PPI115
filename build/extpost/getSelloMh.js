@@ -56,7 +56,7 @@ var getSelloMh = /*#__PURE__*/function () {
                 }
               } else {
                 console.log("Estados readyState: " + xhr.readyState);
-                console.log("Estado estatus: " + xhr.responseText);
+                console.log("Estado estatus: " + xhr.statusText);
                 if (xhr.readyState === 4 && xhr.status === 400) {
                   reject("No se ha podido sellar: " + Object.keys(xhr));
                 }
