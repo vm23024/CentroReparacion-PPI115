@@ -82,8 +82,8 @@ var getFirma = /*#__PURE__*/function () {
                     /* let fechaProcesado = respuesta.fhProcesamiento.split(' ');
                      let fechaHora = fechaProcesado[0].split('/');*/
                     try {
-                      var update = "UPDATE scc_dtes_creados " + "SET firma_recibida = '" + respuesta.body + "' " + "WHERE codigo_control = '" + solicitudes.gen + "' AND " + "codigo_control = '" + solicitudes.con + "' AND " + "tipo_dte = '" + solicitudes.tipo + "'";
-                      console.log("update: " + update);
+                      var update = "UPDATE scc_dtes_creados " + "SET firma_recibida = '" + respuesta.body + "' " + "WHERE codigo_generado = '" + solicitudes.gen + "' AND " + "codigo_control = '" + solicitudes.con + "' AND " + "tipo_dte = '" + solicitudes.tipo + "'";
+                      //console.log("update: "+update);
                       //Guardar json firmado
                       var actualizado = con.query(update, function (err, result) {
                         if (err) {
@@ -91,16 +91,8 @@ var getFirma = /*#__PURE__*/function () {
                           response.status(500);
                           response.send("Errores: " + err);
                         } else {
-                          //console.log("Se agrego fila:" + Object.values(result));
-                          /*let sello = getSelloMh(
-                              token,
-                              respuesta.body,
-                              jsonFirmar.identificacion.ambiente,
-                              jsonFirmar.identificacion.tipoDte,
-                              solicitudes.con,
-                              jsonFirmar.identificacion.version,
-                              jsonFirmar.identificacion.codigoGeneracion
-                            );*/
+                          console.log("Se agrego fila:" + Object.values(result));
+                          var sello = (0, _getSelloMh.getSelloMh)(token, respuesta.body, jsonFirmar.identificacion.ambiente, jsonFirmar.identificacion.tipoDte, solicitudes.con, jsonFirmar.identificacion.version, jsonFirmar.identificacion.codigoGeneracion);
                           if (sello == "RECHAZADO") {
                             var consulta = (0, _consultaDte.consultaDte)(jsonFirmar.identificacion.codigoGeneracion, jsonFirmar.identificacion.tipoDte, token);
                           }

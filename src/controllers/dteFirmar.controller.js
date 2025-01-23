@@ -68,10 +68,10 @@ const getFirma = async (request, response) => {
                             try {
                                 let update = "UPDATE scc_dtes_creados "
                                     + "SET firma_recibida = '" + respuesta.body + "' "
-                                    + "WHERE codigo_control = '" + solicitudes.gen + "' AND "
+                                    + "WHERE codigo_generado = '" + solicitudes.gen + "' AND "
                                     + "codigo_control = '" + solicitudes.con + "' AND "
                                     + "tipo_dte = '" + solicitudes.tipo + "'";
-                                console.log("update: "+update);
+                                //console.log("update: "+update);
                                 //Guardar json firmado
                                 let actualizado = con.query(update, function (err, result) {
                                     if (err) {
@@ -79,8 +79,8 @@ const getFirma = async (request, response) => {
                                         response.status(500);
                                         response.send("Errores: " + err);
                                     } else {
-                                        //console.log("Se agrego fila:" + Object.values(result));
-                                        /*let sello = getSelloMh(
+                                        console.log("Se agrego fila:" + Object.values(result));
+                                        let sello = getSelloMh(
                                             token,
                                             respuesta.body,
                                             jsonFirmar.identificacion.ambiente,
@@ -89,7 +89,7 @@ const getFirma = async (request, response) => {
                                             jsonFirmar.identificacion.version,
                                             jsonFirmar.identificacion.codigoGeneracion
 
-                                        );*/
+                                        );
                                         if (sello == "RECHAZADO") {
                                             let consulta = consultaDte(jsonFirmar.identificacion.codigoGeneracion,
                                                 jsonFirmar.identificacion.tipoDte,
