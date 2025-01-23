@@ -56,7 +56,7 @@ var getSelloMh = /*#__PURE__*/function () {
                 }
               } else {
                 console.log("Estados readyState: " + xhr.readyState);
-                console.log("Estado estatus: ".xhr.status);
+                console.log("Estado estatus: ".xhr.responseText);
                 /*try {
                     let respuesta2 = JSON.parse(xhr.responseText);
                     let fechaProcesado = respuesta2.fhProcesamiento.split(' ');
