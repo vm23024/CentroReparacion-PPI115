@@ -61,7 +61,7 @@ const getSelloMh = async (token,
                 console.log("Estados readyState: "+xhr.readyState);
                 console.log("Estado estatus: "+xhr.response);
                 if(xhr.readyState === 4 && xhr.status === 400){
-                    reject("No se ha podido sellar: "+Object.keys(xhr));
+                    reject("No se ha podido sellar: "+Object.values(xhr));
                 }
                 
                 /*try {
