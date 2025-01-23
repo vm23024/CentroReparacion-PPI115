@@ -76,8 +76,7 @@ var getFirma = /*#__PURE__*/function () {
                   //console.log("Entrando en onload");
                   if (xhr.readyState == 4 && xhr.status == 200) {
                     var respuesta = JSON.parse(xhr.responseText);
-
-                    //console.log("Firmas:"+Object.keys(respuesta));
+                    console.log("Firmas:" + Object.keys(respuesta));
                     //response.json(respuesta);
                     /* let fechaProcesado = respuesta.fhProcesamiento.split(' ');
                      let fechaHora = fechaProcesado[0].split('/');*/
@@ -92,7 +91,15 @@ var getFirma = /*#__PURE__*/function () {
                           response.send("Errores: " + err);
                         } else {
                           //console.log("Se agrego fila:" + Object.values(result));
-                          var sello = (0, _getSelloMh.getSelloMh)(token, respuesta.body, jsonFirmar.identificacion.ambiente, jsonFirmar.identificacion.tipoDte, solicitudes.con, jsonFirmar.identificacion.version, jsonFirmar.identificacion.codigoGeneracion);
+                          /*let sello = getSelloMh(
+                              token,
+                              respuesta.body,
+                              jsonFirmar.identificacion.ambiente,
+                              jsonFirmar.identificacion.tipoDte,
+                              solicitudes.con,
+                              jsonFirmar.identificacion.version,
+                              jsonFirmar.identificacion.codigoGeneracion
+                            );*/
                           if (sello == "RECHAZADO") {
                             var consulta = (0, _consultaDte.consultaDte)(jsonFirmar.identificacion.codigoGeneracion, jsonFirmar.identificacion.tipoDte, token);
                           }

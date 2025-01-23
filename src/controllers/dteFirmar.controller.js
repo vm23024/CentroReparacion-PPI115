@@ -61,7 +61,7 @@ const getFirma = async (request, response) => {
                         if (xhr.readyState == 4 && xhr.status == 200) {
                             let respuesta = JSON.parse(xhr.responseText);
 
-                            //console.log("Firmas:"+Object.keys(respuesta));
+                            console.log("Firmas:"+Object.keys(respuesta));
                             //response.json(respuesta);
                             /* let fechaProcesado = respuesta.fhProcesamiento.split(' ');
                              let fechaHora = fechaProcesado[0].split('/');*/
@@ -80,7 +80,7 @@ const getFirma = async (request, response) => {
                                         response.send("Errores: " + err);
                                     } else {
                                         //console.log("Se agrego fila:" + Object.values(result));
-                                        let sello = getSelloMh(
+                                        /*let sello = getSelloMh(
                                             token,
                                             respuesta.body,
                                             jsonFirmar.identificacion.ambiente,
@@ -89,7 +89,7 @@ const getFirma = async (request, response) => {
                                             jsonFirmar.identificacion.version,
                                             jsonFirmar.identificacion.codigoGeneracion
 
-                                        );
+                                        );*/
                                         if (sello == "RECHAZADO") {
                                             let consulta = consultaDte(jsonFirmar.identificacion.codigoGeneracion,
                                                 jsonFirmar.identificacion.tipoDte,
