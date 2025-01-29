@@ -16,8 +16,14 @@ var getSelloMh = /*#__PURE__*/function () {
           return (0, _database.getConnection)();
         case 2:
           conexion = _context.sent;
-          url = (0, _getUrlServicio.getUrlServicio)('AUTORIZAR', 'sccsv_2017');
-          urlSello = (0, _getUrlServicio.getUrlServicio)('SELLAR', 'sccsv_2017');
+          _context.next = 5;
+          return (0, _getUrlServicio.getUrlServicio)('AUTORIZAR', 'sccsv_2017');
+        case 5:
+          url = _context.sent;
+          _context.next = 8;
+          return (0, _getUrlServicio.getUrlServicio)('SELLAR', 'sccsv_2017');
+        case 8:
+          urlSello = _context.sent;
           return _context.abrupt("return", new Promise(function (resolve, reject) {
             var data = JSON.stringify({
               "ambiente": ambiente,
@@ -96,7 +102,7 @@ var getSelloMh = /*#__PURE__*/function () {
               }
             };
           }));
-        case 6:
+        case 10:
         case "end":
           return _context.stop();
       }

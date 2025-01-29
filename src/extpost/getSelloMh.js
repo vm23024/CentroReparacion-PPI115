@@ -9,8 +9,8 @@ const getSelloMh = async (token,
     version,
     codigoGen) => {
     const conexion = await getConnection();
-    const url = getUrlServicio('AUTORIZAR', 'sccsv_2017');
-    const urlSello = getUrlServicio('SELLAR', 'sccsv_2017');
+    const url = await getUrlServicio('AUTORIZAR', 'sccsv_2017');
+    const urlSello = await getUrlServicio('SELLAR', 'sccsv_2017');
     return new Promise((resolve, reject) => {
         let data = JSON.stringify({
             "ambiente": ambiente,
