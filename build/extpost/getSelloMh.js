@@ -58,7 +58,7 @@ var getSelloMh = /*#__PURE__*/function () {
                 console.log("Estados readyState: " + xhr.readyState);
                 console.log("Estado estatus: " + xhr.response);
                 if (xhr.readyState === 4 && xhr.status === 400) {
-                  reject("No se ha podido sellar: " + Object.values(xhr));
+                  reject("No se ha podido sellar: " + urlSello);
                 }
 
                 /*try {
