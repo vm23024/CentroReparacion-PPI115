@@ -45,10 +45,10 @@ var getSelloMh = /*#__PURE__*/function () {
             xhr.onload = function () {
               //console.log("Entrando en onload");
               if (xhr.readyState == 4 && xhr.status == 200) {
-                var respuesta = JSON.parse(xhr.responseText);
-                var fechaProcesado = respuesta.fhProcesamiento.split(' ');
-                var fechaHora = fechaProcesado[0].split('/');
-                resolve(respuesta);
+                //let respuesta = JSON.parse(xhr.responseText);
+                //let fechaProcesado = respuesta.fhProcesamiento.split(' ');
+                //let fechaHora = fechaProcesado[0].split('/');
+                resolve(xhr.responseText);
                 /*try {
                     if(respuesta.codigoMsg === '095' || respuesta.codigoMsg === '097'){
                         respuesta.estado = 'PENDIENTE';

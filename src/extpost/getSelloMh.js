@@ -32,10 +32,10 @@ const getSelloMh = async (token,
         xhr.onload = () => {
             //console.log("Entrando en onload");
             if (xhr.readyState == 4 && xhr.status == 200) {
-                let respuesta = JSON.parse(xhr.responseText);
-                let fechaProcesado = respuesta.fhProcesamiento.split(' ');
-                let fechaHora = fechaProcesado[0].split('/');
-                resolve(respuesta);
+                //let respuesta = JSON.parse(xhr.responseText);
+                //let fechaProcesado = respuesta.fhProcesamiento.split(' ');
+                //let fechaHora = fechaProcesado[0].split('/');
+                resolve(xhr.responseText);
                 /*try {
                     if(respuesta.codigoMsg === '095' || respuesta.codigoMsg === '097'){
                         respuesta.estado = 'PENDIENTE';
