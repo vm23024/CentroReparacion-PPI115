@@ -54,8 +54,9 @@ const getSelloMh = async (token,
                     //console.log("Se actualizo: "+respuesta.selloRecibido);
                     resolve(respuesta.selloRecibido);
                 } catch (e) {
-                    reject("Error: " + e);
                     console.log("Respuesta: " + xhr.responseText);
+                    reject("Error: " + e);
+                    
                 }
             } else {
                 console.log("Estados readyState: "+xhr.readyState);
