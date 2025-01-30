@@ -39,40 +39,29 @@ var getSelloMh = /*#__PURE__*/function () {
             xhr.setRequestHeader("Accept", "application/json");
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.setRequestHeader("Authorization", token);
-            xhr.responseText = 'json';
+            //xhr.responseText = 'json';
             //console.log("Token enviado: "+token);
             xhr.send(data);
             xhr.onload = function () {
               //console.log("Entrando en onload");
               if (xhr.readyState == 4 && xhr.status == 200) {
-                //let respuesta = JSON.parse(xhr.responseText);
-                //let fechaProcesado = respuesta.fhProcesamiento.split(' ');
-                //let fechaHora = fechaProcesado[0].split('/');
-                console.log(xhr.responseText);
-                resolve(xhr.responseText);
-                /*try {
-                    if(respuesta.codigoMsg === '095' || respuesta.codigoMsg === '097'){
-                        respuesta.estado = 'PENDIENTE';
-                    }
-                    let actualizar = "UPDATE scc_dtes_creados "
-                        + "SET sello_recibido = '" + respuesta.selloRecibido + "'"
-                        + ", estado = '" + respuesta.estado + "'"
-                        + ", fecha_procesado = '" + fechaHora[2] + "-" + fechaHora[1] + "-" + fechaHora[0] + " " + fechaProcesado[1] + "'"
-                        + ", observaciones = 'codigo: " + respuesta.codigoMsg
-                        + "\n\rdescripcionMensaje: " + respuesta.descripcionMsg
-                        + "\n\robservaciones: " + respuesta.observaciones + "'"
-                        + ",firma_recibida = '" + dteFirmado + "'"
-                        + " WHERE codigo_generado = '" + codigoGen + "'"
-                        + " AND tipo_dte = '" + tipoDte + "'"
-                        + " AND codigo_control = '" + codigoControl + "'";
-                    let actualizado = conexion.query(actualizar);
-                    console.log("Se actualizo: "+respuesta.selloRecibido);
-                    resolve(respuesta.selloRecibido);
+                var respuesta = JSON.parse(xhr.responseText);
+                var fechaProcesado = respuesta.fhProcesamiento.split(' ');
+                var fechaHora = fechaProcesado[0].split('/');
+                //console.log(xhr.responseText);
+                //resolve(xhr.responseText);
+                try {
+                  if (respuesta.codigoMsg === '095' || respuesta.codigoMsg === '097') {
+                    respuesta.estado = 'PENDIENTE';
+                  }
+                  var actualizar = "UPDATE scc_dtes_creados " + "SET sello_recibido = '" + respuesta.selloRecibido + "'" + ", estado = '" + respuesta.estado + "'" + ", fecha_procesado = '" + fechaHora[2] + "-" + fechaHora[1] + "-" + fechaHora[0] + " " + fechaProcesado[1] + "'" + ", observaciones = 'codigo: " + respuesta.codigoMsg + "\n\rdescripcionMensaje: " + respuesta.descripcionMsg + "\n\robservaciones: " + respuesta.observaciones + "'" + ",firma_recibida = '" + dteFirmado + "'" + " WHERE codigo_generado = '" + codigoGen + "'" + " AND tipo_dte = '" + tipoDte + "'" + " AND codigo_control = '" + codigoControl + "'";
+                  var actualizado = conexion.query(actualizar);
+                  console.log("Se actualizo: " + respuesta.selloRecibido);
+                  resolve(respuesta.selloRecibido);
                 } catch (e) {
-                    console.log("Respuesta: " + xhr.responseText);
-                    reject("Error: " + e);
-                    
-                }*/
+                  console.log("Respuesta: " + xhr.responseText);
+                  reject("Error: " + e);
+                }
               } else {
                 console.log("Estados readyState: " + xhr.readyState);
                 console.log("Estado estatus: " + xhr.responsText);

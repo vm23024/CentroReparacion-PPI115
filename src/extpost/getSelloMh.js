@@ -26,18 +26,18 @@ const getSelloMh = async (token,
         xhr.setRequestHeader("Accept", "application/json");
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.setRequestHeader("Authorization", token);
-        xhr.responseText = 'json';
+        //xhr.responseText = 'json';
         //console.log("Token enviado: "+token);
         xhr.send(data);
         xhr.onload = () => {
             //console.log("Entrando en onload");
             if (xhr.readyState == 4 && xhr.status == 200) {
-                //let respuesta = JSON.parse(xhr.responseText);
-                //let fechaProcesado = respuesta.fhProcesamiento.split(' ');
-                //let fechaHora = fechaProcesado[0].split('/');
-                console.log(xhr.responseText);
-                resolve(xhr.responseText);
-                /*try {
+                let respuesta = JSON.parse(xhr.responseText);
+                let fechaProcesado = respuesta.fhProcesamiento.split(' ');
+                let fechaHora = fechaProcesado[0].split('/');
+                //console.log(xhr.responseText);
+                //resolve(xhr.responseText);
+                try {
                     if(respuesta.codigoMsg === '095' || respuesta.codigoMsg === '097'){
                         respuesta.estado = 'PENDIENTE';
                     }
@@ -59,7 +59,7 @@ const getSelloMh = async (token,
                     console.log("Respuesta: " + xhr.responseText);
                     reject("Error: " + e);
                     
-                }*/
+                }
             } else {
                 console.log("Estados readyState: "+xhr.readyState);
                 console.log("Estado estatus: "+xhr.responsText);
