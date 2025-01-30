@@ -35,7 +35,8 @@ const getSelloMh = async (token,
                 let respuesta = JSON.parse(xhr.responseText);
                 let fechaProcesado = respuesta.fhProcesamiento.split(' ');
                 let fechaHora = fechaProcesado[0].split('/');
-                try {
+                resolve(respuesta);
+                /*try {
                     if(respuesta.codigoMsg === '095' || respuesta.codigoMsg === '097'){
                         respuesta.estado = 'PENDIENTE';
                     }
@@ -57,7 +58,7 @@ const getSelloMh = async (token,
                     console.log("Respuesta: " + xhr.responseText);
                     reject("Error: " + e);
                     
-                }
+                }*/
             } else {
                 console.log("Estados readyState: "+xhr.readyState);
                 console.log("Estado estatus: "+xhr.responsText);

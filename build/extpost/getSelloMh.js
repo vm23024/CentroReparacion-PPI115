@@ -48,18 +48,30 @@ var getSelloMh = /*#__PURE__*/function () {
                 var respuesta = JSON.parse(xhr.responseText);
                 var fechaProcesado = respuesta.fhProcesamiento.split(' ');
                 var fechaHora = fechaProcesado[0].split('/');
-                try {
-                  if (respuesta.codigoMsg === '095' || respuesta.codigoMsg === '097') {
-                    respuesta.estado = 'PENDIENTE';
-                  }
-                  var actualizar = "UPDATE scc_dtes_creados " + "SET sello_recibido = '" + respuesta.selloRecibido + "'" + ", estado = '" + respuesta.estado + "'" + ", fecha_procesado = '" + fechaHora[2] + "-" + fechaHora[1] + "-" + fechaHora[0] + " " + fechaProcesado[1] + "'" + ", observaciones = 'codigo: " + respuesta.codigoMsg + "\n\rdescripcionMensaje: " + respuesta.descripcionMsg + "\n\robservaciones: " + respuesta.observaciones + "'" + ",firma_recibida = '" + dteFirmado + "'" + " WHERE codigo_generado = '" + codigoGen + "'" + " AND tipo_dte = '" + tipoDte + "'" + " AND codigo_control = '" + codigoControl + "'";
-                  var actualizado = conexion.query(actualizar);
-                  console.log("Se actualizo: " + respuesta.selloRecibido);
-                  resolve(respuesta.selloRecibido);
+                resolve(respuesta);
+                /*try {
+                    if(respuesta.codigoMsg === '095' || respuesta.codigoMsg === '097'){
+                        respuesta.estado = 'PENDIENTE';
+                    }
+                    let actualizar = "UPDATE scc_dtes_creados "
+                        + "SET sello_recibido = '" + respuesta.selloRecibido + "'"
+                        + ", estado = '" + respuesta.estado + "'"
+                        + ", fecha_procesado = '" + fechaHora[2] + "-" + fechaHora[1] + "-" + fechaHora[0] + " " + fechaProcesado[1] + "'"
+                        + ", observaciones = 'codigo: " + respuesta.codigoMsg
+                        + "\n\rdescripcionMensaje: " + respuesta.descripcionMsg
+                        + "\n\robservaciones: " + respuesta.observaciones + "'"
+                        + ",firma_recibida = '" + dteFirmado + "'"
+                        + " WHERE codigo_generado = '" + codigoGen + "'"
+                        + " AND tipo_dte = '" + tipoDte + "'"
+                        + " AND codigo_control = '" + codigoControl + "'";
+                    let actualizado = conexion.query(actualizar);
+                    console.log("Se actualizo: "+respuesta.selloRecibido);
+                    resolve(respuesta.selloRecibido);
                 } catch (e) {
-                  console.log("Respuesta: " + xhr.responseText);
-                  reject("Error: " + e);
-                }
+                    console.log("Respuesta: " + xhr.responseText);
+                    reject("Error: " + e);
+                    
+                }*/
               } else {
                 console.log("Estados readyState: " + xhr.readyState);
                 console.log("Estado estatus: " + xhr.responsText);
