@@ -54,7 +54,7 @@ var getSelloMh = /*#__PURE__*/function () {
                   }
                   var actualizar = "UPDATE scc_dtes_creados " + "SET sello_recibido = '" + respuesta.selloRecibido + "'" + ", estado = '" + respuesta.estado + "'" + ", fecha_procesado = '" + fechaHora[2] + "-" + fechaHora[1] + "-" + fechaHora[0] + " " + fechaProcesado[1] + "'" + ", observaciones = 'codigo: " + respuesta.codigoMsg + "\n\rdescripcionMensaje: " + respuesta.descripcionMsg + "\n\robservaciones: " + respuesta.observaciones + "'" + ",firma_recibida = '" + dteFirmado + "'" + " WHERE codigo_generado = '" + codigoGen + "'" + " AND tipo_dte = '" + tipoDte + "'" + " AND codigo_control = '" + codigoControl + "'";
                   var actualizado = conexion.query(actualizar);
-                  //console.log("Se actualizo: "+respuesta.selloRecibido);
+                  console.log("Se actualizo: " + respuesta.selloRecibido);
                   resolve(respuesta.selloRecibido);
                 } catch (e) {
                   console.log("Respuesta: " + xhr.responseText);

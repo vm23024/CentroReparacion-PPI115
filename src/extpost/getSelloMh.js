@@ -51,7 +51,7 @@ const getSelloMh = async (token,
                         + " AND tipo_dte = '" + tipoDte + "'"
                         + " AND codigo_control = '" + codigoControl + "'";
                     let actualizado = conexion.query(actualizar);
-                    //console.log("Se actualizo: "+respuesta.selloRecibido);
+                    console.log("Se actualizo: "+respuesta.selloRecibido);
                     resolve(respuesta.selloRecibido);
                 } catch (e) {
                     console.log("Respuesta: " + xhr.responseText);
