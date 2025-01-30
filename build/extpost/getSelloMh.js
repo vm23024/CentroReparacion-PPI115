@@ -48,6 +48,7 @@ var getSelloMh = /*#__PURE__*/function () {
                 //let respuesta = JSON.parse(xhr.responseText);
                 //let fechaProcesado = respuesta.fhProcesamiento.split(' ');
                 //let fechaHora = fechaProcesado[0].split('/');
+                console.log(xhr.responseText);
                 resolve(xhr.responseText);
                 /*try {
                     if(respuesta.codigoMsg === '095' || respuesta.codigoMsg === '097'){
