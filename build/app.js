@@ -13,7 +13,7 @@ var _status = _interopRequireDefault(require("./routes/status.routes"));
 var _contingenciaDte = _interopRequireDefault(require("./routes/contingenciaDte.routes"));
 var _dteFirmar = _interopRequireDefault(require("./routes/dteFirmar.routes"));
 var _consultaDteReporte = _interopRequireDefault(require("./routes/consultaDteReporte.routes"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 var config = {
   application: {
     cors: {

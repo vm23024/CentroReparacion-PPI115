@@ -1,5 +1,5 @@
 import { getConnection } from './../database/database';
-import * as lib from './getUrlServicio'; 
+import * as lib from './getUrlServicio';
 
 const getTokenMh = async (fecha) => {
     const conexion = await getConnection();
@@ -22,7 +22,7 @@ const getTokenMh = async (fecha) => {
             + "FROM scc_tokens_mh "
             + "WHERE fecha_hora = '" + fechaBs.getFullYear() + "-" + ("0" + (fechaBs.getMonth() + 1)).slice(-2) + "-"
             + ("0" + fechaBs.getDate()).slice(-2) + "'";//Consultar token antes de solicitar uno nuevo
-            //console.log("Token a extraer: "+sql);
+        //console.log("Token a extraer: "+sql);
         conexion.query(sql, (err, rows, fields) => {
             if (!err) {
                 /*var filas = json(rows);
@@ -53,7 +53,7 @@ const getTokenMh = async (fecha) => {
                             xhr.withCredentials = true;
 
                             //console.log("Url: " + urlAutorizar);
-                            xhr.open("POST", urlAutorizar+"?user=" + usuario + "&pwd=" + passwd);
+                            xhr.open("POST", urlAutorizar + "?user=" + usuario + "&pwd=" + passwd);
                             xhr.setRequestHeader("user", usuario);
                             xhr.setRequestHeader("pwd", passwd);
                             xhr.responseType = 'json';
@@ -69,17 +69,17 @@ const getTokenMh = async (fecha) => {
                                                 + "VALUES('" + fechaBs.getFullYear() + "-" + ("0" + (fechaBs.getMonth() + 1)).slice(-2) + "-" + ("0" + fechaBs.getDate()).slice(-2) + "', "
                                                 + "'" + fechaBs.getHours() + ":" + fechaBs.getMinutes() + ":" + fechaBs.getSeconds() + "', "
                                                 + "'" + respuesta.body.token + "')";
-                                            let insertado = conexion.query(insrNuevoToken,function(error, results){
-                                                if(error){
+                                            let insertado = conexion.query(insrNuevoToken, function (error, results) {
+                                                if (error) {
                                                     reject(error);
                                                     throw error;
-                                                }else{
+                                                } else {
                                                     token = respuesta.body.token;
                                                     resolve(token);
-                                                } 
+                                                }
 
                                             });
-                                            
+
                                             /*insertado.then(respuesta => {
                                                 console.log("Error insertado: "+respuesta);
                                             });*/
@@ -98,13 +98,13 @@ const getTokenMh = async (fecha) => {
 
                                 } else {
                                     console.log(`Error no regresaron token: ${Object.values(urlAutorizar)}`);
-                                    reject("Error al regresar token: "+Object.values(xhr));
+                                    reject("Error al regresar token: " + Object.values(xhr));
                                     conexion.end();
                                 }
                             }
                             xhr.onerror = (e) => {
-                                console.log("Error en guardado de token 1:"+ xhr.statusText);
-                                reject("Error guardado 1: "+e);
+                                console.log("Error en guardado de token 1:" + xhr.statusText);
+                                reject("Error guardado 1: " + e);
                             };
 
 
@@ -140,7 +140,7 @@ const getTokenMh = async (fecha) => {
                         xhr.withCredentials = true;
 
                         console.log("Url: " + urlAutorizar);
-                        xhr.open("POST", urlAutorizar+"?user=" + usuario + "&pwd=" + passwd);
+                        xhr.open("POST", urlAutorizar + "?user=" + usuario + "&pwd=" + passwd);
                         xhr.setRequestHeader("user", usuario);
                         xhr.setRequestHeader("pwd", passwd);
                         xhr.responseType = 'json';
@@ -159,17 +159,12 @@ const getTokenMh = async (fecha) => {
                                         let insertado = conexion.query(insrNuevoToken);
                                         token = respuesta.body.token;
                                         resolve(token);
-                                        /*insertado.then(respuesta => {
-                                            console.log("Error insertado: "+respuesta);
-                                        });*/
-                                        //console.log(insrNuevoToken);
-                                        //token = respuesta.body.token;
 
                                     }
                                     catch (er) {
                                         reject(er);
                                         console.log("Error guardando 2: " + er);
-                                        //return "";
+
                                     }
 
                                 }
@@ -182,7 +177,7 @@ const getTokenMh = async (fecha) => {
                             }
                         }
                         xhr.onerror = (e) => {
-                            console.log("Error de insertado: "+xhr.statusText);
+                            console.log("Error de insertado: " + xhr.statusText);
                             reject("No se logro guardar el token 2: ");
                         };
 
@@ -190,24 +185,16 @@ const getTokenMh = async (fecha) => {
 
                     } else {
                         console.log("Error al extraer credenciales 2: " + err);
-                        console.log("Objeto conexion: "+ Object.keys(conexion));
+                        console.log("Objeto conexion: " + Object.keys(conexion));
                         console.log("Valores de objeto: " + Object.values(conexion));
-                        //console.log("SQL credenciales 2: "+sqlCredenciales);
-                        //return "";
                         reject("Error: " + err);
                     }
                 });
             }
         });
-        /*conexion.end((error) => {
-            if(error){
-                console.log('Error cerrando conexion: '+error);
-                return;
-            }
-        });*/
-        
+
     });
-    
+
     //console.log(result);
 
 

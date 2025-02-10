@@ -2,7 +2,7 @@
 
 var _promiseMysql = _interopRequireDefault(require("promise-mysql"));
 var _config = _interopRequireDefault(require("./../config"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 var connection = _promiseMysql["default"].createConnection({
   host: _config["default"].host,
   database: _config["default"].database,
