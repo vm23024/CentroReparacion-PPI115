@@ -82,7 +82,7 @@ const getContingencia = async (request, response) => {
         response.json(json_anular);
 
 
-
+        /*
         //Preparando invocacion api externa 
         const urlInvalidacion = "https://apitest.dtes.mh.gob.sv/fesv/anulardte";//await getUrlServicio('CONTANULAR');
         //console.log("url destino: "+urlInvalidacion);
@@ -148,7 +148,7 @@ const getContingencia = async (request, response) => {
                 }
                 
             }
-        }
+        }*/
 
     } catch (e) {
         response.status(500);

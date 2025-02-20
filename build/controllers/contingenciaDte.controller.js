@@ -14,7 +14,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 
 var getContingencia = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(request, response) {
-    var solicitados, con, fecha_token, token, sqlDte, resultado, json_creado, json_anular, urlInvalidacion, XMLHttpRequest, xhr, data;
+    var solicitados, con, fecha_token, token, sqlDte, resultado, json_creado, json_anular;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -84,68 +84,85 @@ var getContingencia = /*#__PURE__*/function () {
           };
           response.json(json_anular);
 
+          /*
           //Preparando invocacion api externa 
-          urlInvalidacion = "https://apitest.dtes.mh.gob.sv/fesv/anulardte"; //await getUrlServicio('CONTANULAR');
+          const urlInvalidacion = "https://apitest.dtes.mh.gob.sv/fesv/anulardte";//await getUrlServicio('CONTANULAR');
           //console.log("url destino: "+urlInvalidacion);
-          XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-          xhr = new XMLHttpRequest();
-          data = JSON.stringify({
-            "ambiente": resultado[0].ambiente,
-            "idEnvio": 1,
-            "version": parseInt(resultado[0].version),
-            "tipoDte": resultado[0].tipo_dte,
-            "documento": resultado[0].firma_recibida
+          var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+          var xhr = new XMLHttpRequest();
+          let data = JSON.stringify({
+              "ambiente": resultado[0].ambiente,
+              "idEnvio": 1,
+              "version": parseInt(resultado[0].version),
+              "tipoDte": resultado[0].tipo_dte,
+              "documento": resultado[0].firma_recibida
           });
           xhr.withCredentials = true;
           xhr.open("POST", urlInvalidacion);
           xhr.setRequestHeader("Authorization", token);
           xhr.setRequestHeader("Content-Type", "application/json");
-          xhr.setRequestHeader("Accept", "application/json");
+          xhr.setRequestHeader("Accept", "application/json")
           xhr.responseType = 'json';
           xhr.send(data);
-          xhr.onload = function () {
-            //console.log("Entrando en onload");
-            if (xhr.readyState == 4 && xhr.status == 200) {
-              var respuesta = JSON.parse(xhr.responseText);
-              var fechaProcesado = respuesta.fhProcesamiento.split(' ');
-              var fechaHora = fechaProcesado[0].split('/');
-              try {
-                var actualizar = "UPDATE scc_dtes_creados " + "SET sello_recibido = '" + respuesta.selloRecibido + "'" + ", estado = CONCAT(estado, '(ANULADO)')" + ", fecha_procesado = '" + fechaHora[2] + "-" + fechaHora[1] + "-" + fechaHora[0] + " " + fechaProcesado[1] + "'" + ", observaciones = 'codigo: " + respuesta.codigoMsg + "\n\rdescripcionMensaje: " + respuesta.descripcionMsg + "\n\robservaciones: " + respuesta.observaciones + "'" + " WHERE codigo_generado = '" + resultado[0].codigo_generado + "'" + " AND tipo_dte = '" + resultado[0].tipo_dte + "'" + " AND codigo_control = '" + resultado[0].codigo_control + "'";
-                var actualizado = con.query(actualizar);
-                console.log("Respuesta: " + xhr.responseText);
-                // resolve("ok");
-              } catch (e) {
-                //reject("Error: " + e);
-                console.log("Respuesta: " + xhr.responseText);
+          xhr.onload = () => {
+              //console.log("Entrando en onload");
+              if (xhr.readyState == 4 && xhr.status == 200) {
+                  let respuesta = JSON.parse(xhr.responseText);
+                  let fechaProcesado = respuesta.fhProcesamiento.split(' ');
+                  let fechaHora = fechaProcesado[0].split('/');
+                  try {
+                      let actualizar = "UPDATE scc_dtes_creados "
+                          + "SET sello_recibido = '" + respuesta.selloRecibido + "'"
+                          + ", estado = CONCAT(estado, '(ANULADO)')"
+                          + ", fecha_procesado = '" + fechaHora[2] + "-" + fechaHora[1] + "-" + fechaHora[0] + " " + fechaProcesado[1] + "'"
+                          + ", observaciones = 'codigo: " + respuesta.codigoMsg
+                          + "\n\rdescripcionMensaje: " + respuesta.descripcionMsg
+                          + "\n\robservaciones: " + respuesta.observaciones + "'"
+                          + " WHERE codigo_generado = '" + resultado[0].codigo_generado + "'"
+                          + " AND tipo_dte = '" + resultado[0].tipo_dte + "'"
+                          + " AND codigo_control = '" + resultado[0].codigo_control + "'";
+                      let actualizado = con.query(actualizar);
+                      console.log("Respuesta: " + xhr.responseText);
+                     // resolve("ok");
+                  } catch (e) {
+                      //reject("Error: " + e);
+                      console.log("Respuesta: " + xhr.responseText);
+                  }
+              } else {
+                  try {
+                      let respuesta2 = JSON.parse(xhr.responseText);
+                      //let fechaProcesado = respuesta2.fhProcesamiento.split(' ');
+                      //let fechaHora = fechaProcesado[0].split('/');
+                      let actualizar = "UPDATE scc_dtes_creados "
+                          + "SET observaciones = 'codigo: " + respuesta2.codigoMsg
+                          + "\n\rdescripcionMensaje: " + respuesta2.descripcionMsg
+                          + "\n\rObservaciones: " + respuesta2.observaciones + "'"
+                          + " WHERE codigo_generado = '" + solicitados.codigo_generado + "'"
+                          + " AND tipo_dte = '" + solicitados.tipo_dte + "'"
+                          + " AND codigo_control = '" + solicitados.codigo_control + "'";
+                      let actualizado = con.query(actualizar);
+                      console.log("Se actualizo en base de datos: " + respuesta2.estado);
+                      //response.json("Json Actualizado pero rechazado:"+Object.keys(respuesta2));
+                  }catch(e){
+                      console.log("Errores de json: "+xhr.response);
+                      console.log("Errores json catcheado: "+e);
+                     // response.send("Errores de json: "+Object.keys(xhr));
+                  }
+                  
               }
-            } else {
-              try {
-                var respuesta2 = JSON.parse(xhr.responseText);
-                //let fechaProcesado = respuesta2.fhProcesamiento.split(' ');
-                //let fechaHora = fechaProcesado[0].split('/');
-                var _actualizar = "UPDATE scc_dtes_creados " + "SET observaciones = 'codigo: " + respuesta2.codigoMsg + "\n\rdescripcionMensaje: " + respuesta2.descripcionMsg + "\n\rObservaciones: " + respuesta2.observaciones + "'" + " WHERE codigo_generado = '" + solicitados.codigo_generado + "'" + " AND tipo_dte = '" + solicitados.tipo_dte + "'" + " AND codigo_control = '" + solicitados.codigo_control + "'";
-                var _actualizado = con.query(_actualizar);
-                console.log("Se actualizo en base de datos: " + respuesta2.estado);
-                //response.json("Json Actualizado pero rechazado:"+Object.keys(respuesta2));
-              } catch (e) {
-                console.log("Errores de json: " + xhr.response);
-                console.log("Errores json catcheado: " + e);
-                // response.send("Errores de json: "+Object.keys(xhr));
-              }
-            }
-          };
-          _context.next = 34;
+          }*/
+          _context.next = 22;
           break;
-        case 30:
-          _context.prev = 30;
+        case 18:
+          _context.prev = 18;
           _context.t0 = _context["catch"](0);
           response.status(500);
           response.send("Error: " + _context.t0.message);
-        case 34:
+        case 22:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 30]]);
+    }, _callee, null, [[0, 18]]);
   }));
   return function getContingencia(_x, _x2) {
     return _ref.apply(this, arguments);
