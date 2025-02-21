@@ -180,6 +180,7 @@ const getContingencia = async (request, response) => {
                     };
             } catch (error) {
                 console.log("Error: "+error.message);
+                console.log(json_anular);
                 response.status(500);
                 response.send("No se parsear json a firmar: "+error.message);
             }
