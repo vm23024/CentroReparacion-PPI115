@@ -56,7 +56,7 @@ var getAnulacion = /*#__PURE__*/function () {
                   reject("Error: " + e);
                 }
               } else {
-                console.log("Parametros rechazados para anular: " + xhr.readyState);
+                console.log("Parametros rechazados para anular: " + dteFirmado);
                 console.log("Estado estatus: " + xhr.responsText);
                 reject("No se proceso la anulacion: " + urlAnular);
               }

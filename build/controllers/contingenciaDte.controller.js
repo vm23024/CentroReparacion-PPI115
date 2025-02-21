@@ -123,20 +123,15 @@ var getContingencia = /*#__PURE__*/function () {
                 //response.json(respuesta);
                 /* let fechaProcesado = respuesta.fhProcesamiento.split(' ');
                  let fechaHora = fechaProcesado[0].split('/');*/
-                try {
-                  var anulacion = (0, _getAnulacion.getAnulacion)(token, respuesta.body, jsonFirmar.identificacion.ambiente, jsonFirmar.identificacion.tipoDte, solicitados.codigo_control, jsonFirmar.identificacion.version, jsonFirmar.identificacion.codigoGeneracion);
-                  anulacion.then(function (value) {
-                    console.log(value);
-                    response.json(value);
-                  })["catch"](function (err) {
-                    console.log(err);
-                    response.send(err);
-                  });
-                } catch (e) {
-                  response.status(500);
-                  response.send("Error al guardar firma: " + e);
-                  console.log("Respuesta: " + xhr.responseText);
-                }
+
+                var anulacion = (0, _getAnulacion.getAnulacion)(token, respuesta.body, jsonFirmar.identificacion.ambiente, jsonFirmar.identificacion.tipoDte, solicitados.codigo_control, jsonFirmar.identificacion.version, jsonFirmar.identificacion.codigoGeneracion);
+                anulacion.then(function (value) {
+                  console.log(value);
+                  response.json(value);
+                })["catch"](function (err) {
+                  console.log(err);
+                  response.send(err);
+                });
               } else {
                 console.log("Rechazado: " + xhr.response);
                 response.send("Error tambien: " + xhr);

@@ -116,30 +116,26 @@ const getContingencia = async (request, response) => {
                         //response.json(respuesta);
                         /* let fechaProcesado = respuesta.fhProcesamiento.split(' ');
                          let fechaHora = fechaProcesado[0].split('/');*/
-                        try {
-                            
-                            let anulacion = getAnulacion(
-                                token,
-                                respuesta.body,
-                                jsonFirmar.identificacion.ambiente,
-                                jsonFirmar.identificacion.tipoDte,
-                                solicitados.codigo_control,
-                                jsonFirmar.identificacion.version,
-                                jsonFirmar.identificacion.codigoGeneracion
-                            );
-                            anulacion.then((value) => {
-                                console.log(value);
-                                response.json(value);
-                            }).catch((err) => {
-                                console.log(err);
-                                response.send(err);
-                            })
 
-                        } catch (e) {
-                            response.status(500);
-                            response.send("Error al guardar firma: " + e);
-                            console.log("Respuesta: " + xhr.responseText);
-                        }
+
+                        let anulacion = getAnulacion(
+                            token,
+                            respuesta.body,
+                            jsonFirmar.identificacion.ambiente,
+                            jsonFirmar.identificacion.tipoDte,
+                            solicitados.codigo_control,
+                            jsonFirmar.identificacion.version,
+                            jsonFirmar.identificacion.codigoGeneracion
+                        );
+                        anulacion.then((value) => {
+                            console.log(value);
+                            response.json(value);
+                        }).catch((err) => {
+                            console.log(err);
+                            response.send(err);
+                        })
+
+
                     } else {
                         console.log("Rechazado: " + xhr.response);
                         response.send("Error tambien: " + xhr);
