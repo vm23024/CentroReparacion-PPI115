@@ -98,7 +98,7 @@ var getContingencia = /*#__PURE__*/function () {
         case 22:
           credenciales = _context.sent;
           try {
-            jsonFirmar = JSON.stringify(json_anular);
+            jsonFirmar = JSON.parse(json_anular);
             data = JSON.stringify({
               "nit": credenciales[0].nit,
               "passwordPri": credenciales[0].psw,

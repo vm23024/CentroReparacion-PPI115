@@ -91,7 +91,7 @@ const getContingencia = async (request, response) => {
                 + " WHERE nombre_db = 'sccsv_2017'";// + process.env.DB_PRESTAN + "'";
             var credenciales = await con.query(sqlCredenciales);
             try {
-                let jsonFirmar = JSON.stringify(json_anular);
+                let jsonFirmar = JSON.parse(json_anular);
                 let data = JSON.stringify({
                     "nit": credenciales[0].nit,
                     "passwordPri": credenciales[0].psw,
