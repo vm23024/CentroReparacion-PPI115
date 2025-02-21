@@ -25,7 +25,7 @@ const getContingencia = async (request, response) => {
             + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.tipoDte')), '"+solicitados.tipo_dte+"') AS tipo_dte, "
             + "json_creado, "
             + "sello_recibido "
-            + "FROM prestan.scc_dtes_creados "
+            + "FROM scc_dtes_creados "
             + "WHERE codigo_generado = '" + solicitados.codigo_generado + "' "
             + "AND codigo_control = '" + solicitados.codigo_control + "' "
             + "AND tipo_dte = '" + solicitados.tipo_dte + "'";

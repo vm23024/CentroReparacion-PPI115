@@ -34,7 +34,7 @@ var getContingencia = /*#__PURE__*/function () {
         case 8:
           token = _context.sent;
           //Consulta para extraer firma de dte a invalidar
-          sqlDte = "SELECT codigo_generado," + "codigo_control," + "tipo_dte," + "firma_recibida, " + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.ambiente')), '01') AS ambiente," + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.version')), 1) AS version, " + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.tipoDte')), '" + solicitados.tipo_dte + "') AS tipo_dte, " + "json_creado, " + "sello_recibido " + "FROM prestan.scc_dtes_creados " + "WHERE codigo_generado = '" + solicitados.codigo_generado + "' " + "AND codigo_control = '" + solicitados.codigo_control + "' " + "AND tipo_dte = '" + solicitados.tipo_dte + "'";
+          sqlDte = "SELECT codigo_generado," + "codigo_control," + "tipo_dte," + "firma_recibida, " + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.ambiente')), '01') AS ambiente," + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.version')), 1) AS version, " + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.tipoDte')), '" + solicitados.tipo_dte + "') AS tipo_dte, " + "json_creado, " + "sello_recibido " + "FROM scc_dtes_creados " + "WHERE codigo_generado = '" + solicitados.codigo_generado + "' " + "AND codigo_control = '" + solicitados.codigo_control + "' " + "AND tipo_dte = '" + solicitados.tipo_dte + "'";
           console.log("Sql: " + sqlDte);
           //Ejecutando query 
           _context.next = 13;
