@@ -98,7 +98,7 @@ var getContingencia = /*#__PURE__*/function () {
         case 22:
           credenciales = _context.sent;
           try {
-            jsonFirmar = json_anular;
+            jsonFirmar = JSON.stringify(json_anular);
             data = JSON.stringify({
               "nit": credenciales[0].nit,
               "passwordPri": credenciales[0].psw,
@@ -134,7 +134,7 @@ var getContingencia = /*#__PURE__*/function () {
                       response.send("Errores: " + err);
                     } else {
                       //Solicitar anulacion.
-                      console.log(jsonFirmar);
+                      console.log("update: " + update);
                       response.send("parametros a enviar: " + jsonFirmar);
                       /*let anulacion = getAnulacion(
                           token,

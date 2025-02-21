@@ -91,7 +91,7 @@ const getContingencia = async (request, response) => {
                 + " WHERE nombre_db = 'sccsv_2017'";// + process.env.DB_PRESTAN + "'";
             var credenciales = await con.query(sqlCredenciales);
             try {
-                let jsonFirmar = json_anular;
+                let jsonFirmar = JSON.stringify(json_anular);
                 let data = JSON.stringify({
                     "nit": credenciales[0].nit,
                     "passwordPri": credenciales[0].psw,
@@ -131,7 +131,7 @@ const getContingencia = async (request, response) => {
                                         response.send("Errores: " + err);
                                     } else {
                                         //Solicitar anulacion.
-                                        console.log(jsonFirmar);
+                                        console.log("update: "+update);
                                         response.send("parametros a enviar: "+jsonFirmar);
                                         /*let anulacion = getAnulacion(
                                             token,
