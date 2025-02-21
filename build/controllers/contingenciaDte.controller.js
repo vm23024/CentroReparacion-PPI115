@@ -134,8 +134,8 @@ var getContingencia = /*#__PURE__*/function () {
                       response.send("Errores: " + err);
                     } else {
                       //Solicitar anulacion.
-                      console.log("update: " + update);
-                      response.send("parametros a enviar: " + jsonFirmar);
+                      console.log("update: " + Object.keys(respuesta.body));
+                      response.send("No se pudo actualizar");
                       /*let anulacion = getAnulacion(
                           token,
                           respuesta.body,
