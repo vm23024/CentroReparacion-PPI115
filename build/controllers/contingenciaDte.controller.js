@@ -129,7 +129,7 @@ var getContingencia = /*#__PURE__*/function () {
                     console.log(value);
                     response.json(value);
                   })["catch"](function (err) {
-                    console.console(err);
+                    console.log(err);
                     response.send(err);
                   });
                 } catch (e) {

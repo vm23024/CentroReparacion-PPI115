@@ -131,7 +131,7 @@ const getContingencia = async (request, response) => {
                                 console.log(value);
                                 response.json(value);
                             }).catch((err) => {
-                                console.console(err);
+                                console.log(err);
                                 response.send(err);
                             })
 
