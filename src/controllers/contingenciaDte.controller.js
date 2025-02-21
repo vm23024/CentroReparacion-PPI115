@@ -122,7 +122,7 @@ const getContingencia = async (request, response) => {
                             token,
                             respuesta.body,
                             jsonFirmar.identificacion.ambiente,
-                            jsonFirmar.identificacion.tipoDte,
+                            solicitados.tipo_dte,
                             solicitados.codigo_control,
                             jsonFirmar.identificacion.version,
                             jsonFirmar.identificacion.codigoGeneracion

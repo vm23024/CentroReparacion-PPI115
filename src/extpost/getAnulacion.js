@@ -40,10 +40,10 @@ const getAnulacion = async (token,
                 try {
                     
                     let actualizar = "UPDATE scc_dtes_creados "
-                        + "SET estado = CONCAT(estado, '(Anulado)'"
-                        + ", observaciones = CONCAT(observciones, ' Anulacion procesada con sello: "
+                        + "SET estado = CONCAT(estado, '(Anulado)')"
+                        + ", observaciones = CONCAT(observaciones, 'Anulacion procesada con sello: "
                         + respuesta.selloRecibido+ " \t\r"
-                        + "con fecha: "+ fechaHora[2] + "-" + fechaHora[1] + "-" + fechaHora[0] + " " + fechaProcesado[1] + "'"
+                        + "con fecha: "+ fechaHora[2] + "-" + fechaHora[1] + "-" + fechaHora[0] + " " + fechaProcesado[1] + "')"
                         + " WHERE codigo_generado = '" + codigoGen + "'"
                         + " AND tipo_dte = '" + tipoDte + "'"
                         + " AND codigo_control = '" + codigoControl + "'";

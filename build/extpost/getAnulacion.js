@@ -47,7 +47,7 @@ var getAnulacion = /*#__PURE__*/function () {
                 //console.log(xhr.responseText);
                 //resolve(xhr.responseText);
                 try {
-                  var actualizar = "UPDATE scc_dtes_creados " + "SET estado = CONCAT(estado, '(Anulado)'" + ", observaciones = CONCAT(observciones, ' Anulacion procesada con sello: " + respuesta.selloRecibido + " \t\r" + "con fecha: " + fechaHora[2] + "-" + fechaHora[1] + "-" + fechaHora[0] + " " + fechaProcesado[1] + "'" + " WHERE codigo_generado = '" + codigoGen + "'" + " AND tipo_dte = '" + tipoDte + "'" + " AND codigo_control = '" + codigoControl + "'";
+                  var actualizar = "UPDATE scc_dtes_creados " + "SET estado = CONCAT(estado, '(Anulado)')" + ", observaciones = CONCAT(observaciones, 'Anulacion procesada con sello: " + respuesta.selloRecibido + " \t\r" + "con fecha: " + fechaHora[2] + "-" + fechaHora[1] + "-" + fechaHora[0] + " " + fechaProcesado[1] + "')" + " WHERE codigo_generado = '" + codigoGen + "'" + " AND tipo_dte = '" + tipoDte + "'" + " AND codigo_control = '" + codigoControl + "'";
                   var actualizado = conexion.query(actualizar);
                   console.log("Se anulo con sello: " + respuesta.selloRecibido);
                   resolve(respuesta.selloRecibido);

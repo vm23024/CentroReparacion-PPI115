@@ -124,7 +124,7 @@ var getContingencia = /*#__PURE__*/function () {
                 /* let fechaProcesado = respuesta.fhProcesamiento.split(' ');
                  let fechaHora = fechaProcesado[0].split('/');*/
 
-                var anulacion = (0, _getAnulacion.getAnulacion)(token, respuesta.body, jsonFirmar.identificacion.ambiente, jsonFirmar.identificacion.tipoDte, solicitados.codigo_control, jsonFirmar.identificacion.version, jsonFirmar.identificacion.codigoGeneracion);
+                var anulacion = (0, _getAnulacion.getAnulacion)(token, respuesta.body, jsonFirmar.identificacion.ambiente, solicitados.tipo_dte, solicitados.codigo_control, jsonFirmar.identificacion.version, jsonFirmar.identificacion.codigoGeneracion);
                 anulacion.then(function (value) {
                   console.log(value);
                   response.json(value);
