@@ -140,7 +140,12 @@ const getContingencia = async (request, response) => {
                                             jsonFirmar.identificacion.version,
                                             jsonFirmar.identificacion.codigoGeneracion
                                         );
-                                        console.log("Respuesta anulacion: "+anulacion);
+                                        anulacion.then((value) => {
+                                            console.log(value);
+                                        }).catch((err) => {
+                                            console.error(err);
+                                        })
+                                        //console.log("Respuesta anulacion: "+anulacion);
                                         response.json(anulacion);
 
                                     }
