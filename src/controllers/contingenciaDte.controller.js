@@ -131,7 +131,8 @@ const getContingencia = async (request, response) => {
                                         response.send("Errores: " + err);
                                     } else {
                                         //Solicitar anulacion.
-                                        let anulacion = getAnulacion(
+                                        response.json(jsonFirmar);
+                                        /*let anulacion = getAnulacion(
                                             token,
                                             respuesta.body,
                                             jsonFirmar.identificacion.ambiente,
@@ -144,9 +145,9 @@ const getContingencia = async (request, response) => {
                                             console.log(value);
                                             response.json(value);
                                         }).catch((err) => {
-                                            console.error(err);
+                                            console.console(err);
                                             response.send(err);
-                                        })
+                                        })*/
                                         //console.log("Respuesta anulacion: "+anulacion);
                                         
 
