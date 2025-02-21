@@ -48,7 +48,7 @@ const getAnulacion = async (token,
                         + " AND tipo_dte = '" + tipoDte + "'"
                         + " AND codigo_control = '" + codigoControl + "'";
                     let actualizado = conexion.query(actualizar);
-                    console.log("Se anulo con sello: " + respuesta.selloRecibido);
+                    //console.log("Se anulo con sello: " + respuesta.selloRecibido);
                     resolve(respuesta.selloRecibido);
                 } catch (e) {
                     console.log("No se logro anular: " + xhr.responseText);

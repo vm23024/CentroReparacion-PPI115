@@ -129,7 +129,9 @@ const getContingencia = async (request, response) => {
                         );
                         anulacion.then((value) => {
                             console.log(value);
-                            response.json(value);
+                            response.json({
+                                "sello": value
+                            });
                         }).catch((err) => {
                             console.log(err);
                             response.send(err);
