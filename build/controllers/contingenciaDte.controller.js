@@ -34,11 +34,12 @@ var getContingencia = /*#__PURE__*/function () {
         case 8:
           token = _context.sent;
           //Consulta para extraer firma de dte a invalidar
-          sqlDte = "SELECT codigo_generado," + "codigo_control," + "tipo_dte," + "firma_recibida, " + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.ambiente')), '01') AS ambiente," + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.version')), 1) AS version, " + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.tipoDte')), '" + solicitados.tipo_dte + "') AS tipo_dte, " + "json_creado, " + "sello_recibido " + "FROM prestan.scc_dtes_creados " + "WHERE codigo_generado = '" + solicitados.codigo_generado + "' " + "AND codigo_control = '" + solicitados.codigo_control + "' " + "AND tipo_dte = '" + solicitados.tipo_dte + "'"; //console.log("Sql: "+sqlDte);
+          sqlDte = "SELECT codigo_generado," + "codigo_control," + "tipo_dte," + "firma_recibida, " + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.ambiente')), '01') AS ambiente," + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.version')), 1) AS version, " + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.tipoDte')), '" + solicitados.tipo_dte + "') AS tipo_dte, " + "json_creado, " + "sello_recibido " + "FROM prestan.scc_dtes_creados " + "WHERE codigo_generado = '" + solicitados.codigo_generado + "' " + "AND codigo_control = '" + solicitados.codigo_control + "' " + "AND tipo_dte = '" + solicitados.tipo_dte + "'";
+          console.log("Sql: " + sqlDte);
           //Ejecutando query 
-          _context.next = 12;
+          _context.next = 13;
           return con.query(sqlDte);
-        case 12:
+        case 13:
           resultado = _context.sent;
           json_creado = JSON.parse(resultado[0].json_creado);
           json_anular = {
@@ -151,18 +152,19 @@ var getContingencia = /*#__PURE__*/function () {
                   
               }
           }*/
-          _context.next = 22;
+          _context.next = 24;
           break;
-        case 18:
-          _context.prev = 18;
+        case 19:
+          _context.prev = 19;
           _context.t0 = _context["catch"](0);
           response.status(500);
           response.send("Error: " + _context.t0.message);
-        case 22:
+          console.log("Error creando json: " + _context.t0);
+        case 24:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 18]]);
+    }, _callee, null, [[0, 19]]);
   }));
   return function getContingencia(_x, _x2) {
     return _ref.apply(this, arguments);

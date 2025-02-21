@@ -29,7 +29,7 @@ const getContingencia = async (request, response) => {
             + "WHERE codigo_generado = '" + solicitados.codigo_generado + "' "
             + "AND codigo_control = '" + solicitados.codigo_control + "' "
             + "AND tipo_dte = '" + solicitados.tipo_dte + "'";
-        //console.log("Sql: "+sqlDte);
+        console.log("Sql: "+sqlDte);
         //Ejecutando query 
         var resultado = await con.query(sqlDte);
         var json_creado = JSON.parse(resultado[0].json_creado);
@@ -153,6 +153,7 @@ const getContingencia = async (request, response) => {
     } catch (e) {
         response.status(500);
         response.send("Error: " + e.message);
+        console.log("Error creando json: "+e);
     }
 };
 
