@@ -48,13 +48,13 @@ const getContingencia = async (request, response) => {
             "emisor":
             {
                 "nit": json_creado.emisor.nit,
-                "nombre": json_creado.nombre,
+                "nombre": json_creado.emisor.nombre,
                 "tipoEstablecimiento": json_creado.emisor.tipoEstablecimiento,
                 "telefono": json_creado.emisor.telefono.replace('-', ''),
                 "correo": json_creado.emisor.correo,
                 "codEstable": json_creado.emisor.codEstable,
                 "codPuntoVenta": json_creado.emisor.codPuntoVenta,
-                "nomEstablecimiento": json_creado.emisor.nomEstablecimiento
+                "nomEstablecimiento": json_creado.emisor.nombreComercial
 
             },
             "documento":
