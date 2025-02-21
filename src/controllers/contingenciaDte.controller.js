@@ -18,7 +18,7 @@ const getContingencia = async (request, response) => {
         var token = await getTokenMh(fecha_token.getFullYear() + "-" + (fecha_token.getMonth() + 1) + "-" + fecha_token.getDate());
         //Urls a utilizar para firma y anulacion
         const urlFirma = await getUrlServicio('FIRMAR', 'sccsv_2017');
-        
+
         //Consulta para extraer firma de dte a invalidar
         var sqlDte = "SELECT codigo_generado,"
             + "codigo_control,"
@@ -99,83 +99,58 @@ const getContingencia = async (request, response) => {
                     "dteJson": jsonFirmar
                 });
                 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-                    var xhr = new XMLHttpRequest();
-                    xhr.withCredentials = true;
-                    xhr.open("POST", urlFirma);
-                    xhr.setRequestHeader("Accept", "application/json");
-                    xhr.setRequestHeader("Content-Type", "application/json");
-                    //xhr.responseText = 'json';
-                    //console.log("Token enviado: "+token);
-                    xhr.send(data);
-                    xhr.onload = () => {
-                        //console.log("Entrando en onload");
-                        if (xhr.readyState == 4 && xhr.status == 200) {
-                            let respuesta = JSON.parse(xhr.responseText);
+                var xhr = new XMLHttpRequest();
+                xhr.withCredentials = true;
+                xhr.open("POST", urlFirma);
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+                //xhr.responseText = 'json';
+                //console.log("Token enviado: "+token);
+                xhr.send(data);
+                xhr.onload = () => {
+                    //console.log("Entrando en onload");
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        let respuesta = JSON.parse(xhr.responseText);
 
-                            //console.log("Firmas:"+Object.values(respuesta));
-                            //response.json(respuesta);
-                            /* let fechaProcesado = respuesta.fhProcesamiento.split(' ');
-                             let fechaHora = fechaProcesado[0].split('/');*/
-                            try {
-                                let update = "UPDATE scc_dtes_creados "
-                                    + "SET firma_recibida = '" + respuesta.body + "' "
-                                    + "WHERE codigo_generado = '" + solicitados.codigo_generado + "' AND "
-                                    + "codigo_control = '" + solicitados.codigo_control + "' AND "
-                                    + "tipo_dte = '" + solicitados.tipo_dte + "'";
-                                //console.log("update: "+update);
-                                //Guardar json firmado
-                                let actualizado = con.query(update, function (err, result) {
-                                    if (err) {
-                                        console.log("Errores: " + err);
-                                        response.status(500);
-                                        response.send("Errores: " + err);
-                                    } else {
-                                        //Solicitar anulacion.
-                                        console.log("update: "+update);
-                                        response.status(500);
-                                        response.send("No se pudo actualizar");
-                                        /*let anulacion = getAnulacion(
-                                            token,
-                                            respuesta.body,
-                                            jsonFirmar.identificacion.ambiente,
-                                            jsonFirmar.identificacion.tipoDte,
-                                            solicitados.codigo_control,
-                                            jsonFirmar.identificacion.version,
-                                            jsonFirmar.identificacion.codigoGeneracion
-                                        );
-                                        anulacion.then((value) => {
-                                            console.log(value);
-                                            response.json(value);
-                                        }).catch((err) => {
-                                            console.console(err);
-                                            response.send(err);
-                                        })*/
-                                        //console.log("Respuesta anulacion: "+anulacion);
-                                        
+                        //console.log("Firmas:"+Object.values(respuesta));
+                        //response.json(respuesta);
+                        /* let fechaProcesado = respuesta.fhProcesamiento.split(' ');
+                         let fechaHora = fechaProcesado[0].split('/');*/
+                        try {
+                            
+                            let anulacion = getAnulacion(
+                                token,
+                                respuesta.body,
+                                jsonFirmar.identificacion.ambiente,
+                                jsonFirmar.identificacion.tipoDte,
+                                solicitados.codigo_control,
+                                jsonFirmar.identificacion.version,
+                                jsonFirmar.identificacion.codigoGeneracion
+                            );
+                            anulacion.then((value) => {
+                                console.log(value);
+                                response.json(value);
+                            }).catch((err) => {
+                                console.console(err);
+                                response.send(err);
+                            })
 
-                                    }
-                                });
-                                //console.log("Insertado: "+insertado);
-                                //Solicitar sello
-
-                                //Actualizar json guardado en base de datos
-
-                            } catch (e) {
-                                response.status(500);
-                                response.send("Error al guardar firma: " + e);
-                                console.log("Respuesta: " + xhr.responseText);
-                            }
-                        } else {
-                            console.log("Rechazado: "+xhr.response);
-                            response.send("Error tambien: "+xhr);
-
+                        } catch (e) {
+                            response.status(500);
+                            response.send("Error al guardar firma: " + e);
+                            console.log("Respuesta: " + xhr.responseText);
                         }
-                    };
+                    } else {
+                        console.log("Rechazado: " + xhr.response);
+                        response.send("Error tambien: " + xhr);
+
+                    }
+                };
             } catch (error) {
-                console.log("Error: "+error.message);
+                console.log("Error: " + error.message);
                 console.log(json_anular);
                 response.status(500);
-                response.send("No se parsear json a firmar: "+error.message);
+                response.send("No se parsear json a firmar: " + error.message);
             }
         }
         response.json(json_anular);

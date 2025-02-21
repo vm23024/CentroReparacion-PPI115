@@ -124,42 +124,14 @@ var getContingencia = /*#__PURE__*/function () {
                 /* let fechaProcesado = respuesta.fhProcesamiento.split(' ');
                  let fechaHora = fechaProcesado[0].split('/');*/
                 try {
-                  var update = "UPDATE scc_dtes_creados " + "SET firma_recibida = '" + respuesta.body + "' " + "WHERE codigo_generado = '" + solicitados.codigo_generado + "' AND " + "codigo_control = '" + solicitados.codigo_control + "' AND " + "tipo_dte = '" + solicitados.tipo_dte + "'";
-                  //console.log("update: "+update);
-                  //Guardar json firmado
-                  var actualizado = con.query(update, function (err, result) {
-                    if (err) {
-                      console.log("Errores: " + err);
-                      response.status(500);
-                      response.send("Errores: " + err);
-                    } else {
-                      //Solicitar anulacion.
-                      console.log("update: " + update);
-                      response.status(500);
-                      response.send("No se pudo actualizar");
-                      /*let anulacion = getAnulacion(
-                          token,
-                          respuesta.body,
-                          jsonFirmar.identificacion.ambiente,
-                          jsonFirmar.identificacion.tipoDte,
-                          solicitados.codigo_control,
-                          jsonFirmar.identificacion.version,
-                          jsonFirmar.identificacion.codigoGeneracion
-                      );
-                      anulacion.then((value) => {
-                          console.log(value);
-                          response.json(value);
-                      }).catch((err) => {
-                          console.console(err);
-                          response.send(err);
-                      })*/
-                      //console.log("Respuesta anulacion: "+anulacion);
-                    }
+                  var anulacion = (0, _getAnulacion.getAnulacion)(token, respuesta.body, jsonFirmar.identificacion.ambiente, jsonFirmar.identificacion.tipoDte, solicitados.codigo_control, jsonFirmar.identificacion.version, jsonFirmar.identificacion.codigoGeneracion);
+                  anulacion.then(function (value) {
+                    console.log(value);
+                    response.json(value);
+                  })["catch"](function (err) {
+                    console.console(err);
+                    response.send(err);
                   });
-                  //console.log("Insertado: "+insertado);
-                  //Solicitar sello
-
-                  //Actualizar json guardado en base de datos
                 } catch (e) {
                   response.status(500);
                   response.send("Error al guardar firma: " + e);
