@@ -142,11 +142,13 @@ const getContingencia = async (request, response) => {
                                         );
                                         anulacion.then((value) => {
                                             console.log(value);
+                                            response.json(value);
                                         }).catch((err) => {
                                             console.error(err);
+                                            response.send(err);
                                         })
                                         //console.log("Respuesta anulacion: "+anulacion);
-                                        response.json(anulacion);
+                                        
 
                                     }
                                 });

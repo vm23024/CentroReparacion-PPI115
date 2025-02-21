@@ -137,11 +137,12 @@ var getContingencia = /*#__PURE__*/function () {
                       var anulacion = (0, _getAnulacion.getAnulacion)(token, respuesta.body, jsonFirmar.identificacion.ambiente, jsonFirmar.identificacion.tipoDte, solicitados.codigo_control, jsonFirmar.identificacion.version, jsonFirmar.identificacion.codigoGeneracion);
                       anulacion.then(function (value) {
                         console.log(value);
+                        response.json(value);
                       })["catch"](function (err) {
                         console.error(err);
+                        response.send(err);
                       });
                       //console.log("Respuesta anulacion: "+anulacion);
-                      response.json(anulacion);
                     }
                   });
                   //console.log("Insertado: "+insertado);
