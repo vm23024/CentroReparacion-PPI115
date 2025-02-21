@@ -165,18 +165,8 @@ var getContingencia = /*#__PURE__*/function () {
                   console.log("Respuesta: " + xhr.responseText);
                 }
               } else {
-                try {
-                  var respuesta2 = JSON.parse(xhr.responseText);
-                  var actualizar = "UPDATE scc_dtes_creados " + "SET estado = '" + respuesta2.status + "'" + ", observaciones = 'codigo: " + respuesta2.body.codigo + "\n\rdescripcionMensaje: " + respuesta2.body.mensaje + "'" + " WHERE codigo_generado = '" + solicitudes.gen + "'" + " AND tipo_dte = '" + solicitudes.tipo + "'" + " AND codigo_control = '" + solicitudes.con + "'";
-                  var _actualizado = conexion.query(actualizar);
-                  console.log("Se rechazo la firma: " + respuesta2.status);
-                  response.status(500);
-                  response.send("Firmar rechazada: " + respuesta2.responseText);
-                } catch (e) {
-                  console.log("Errores al intentar guardar rechazo de firma: " + xhr.response);
-                  response.status(500);
-                  response.send("Errores al intentar guardar rechazo de firma:" + xhr.responseText);
-                }
+                console.log("Rechazado: " + xhr.response);
+                response.send("Error tambien: " + xhr);
               }
             };
           } catch (error) {
