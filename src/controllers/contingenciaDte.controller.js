@@ -37,10 +37,11 @@ const getContingencia = async (request, response) => {
         //Ejecutando query 
         var resultado = await con.query(sqlDte);
         var json_creado = JSON.parse(resultado[0].json_creado);
+        var momentoActual = new Date();
         var json_anular = {
             "identificacion": {
-                "fecAnula": fecha_token.getFullYear() + "-" + ("0" + (fecha_token.getMonth() + 1)).slice(-2) + "-" + fecha_token.getDate(),
-                "horAnula": ("0" + fecha_token.getHours()).slice(-2) + ":" + ("0" + fecha_token.getMinutes()).slice(-2) + ":" + ("0" + fecha_token.getSeconds()).slice(-2),
+                "fecAnula": momentoActual.getFullYear() + "-" + ("0" + (momentoActual.getMonth() + 1)).slice(-2) + "-" + ("0" + (momentoActual.getDate() + 1)).slice(-2),
+                "horAnula": ("0" + momentoActual.getHours()).slice(-2) + ":" + ("0" + momentoActual.getMinutes()).slice(-2) + ":" + ("0" + momentoActual.getSeconds()).slice(-2),
                 "version": 2,
                 "ambiente": resultado[0].ambiente,
                 "codigoGeneracion": solicitados.codigo_generado

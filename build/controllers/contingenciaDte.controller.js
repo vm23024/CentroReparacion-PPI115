@@ -14,7 +14,7 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 var getContingencia = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(request, response) {
-    var solicitados, con, fecha_token, token, urlFirma, sqlDte, resultado, json_creado, json_anular, sqlCredenciales, credenciales, jsonFirmar, data, XMLHttpRequest, xhr;
+    var solicitados, con, fecha_token, token, urlFirma, sqlDte, resultado, json_creado, momentoActual, json_anular, sqlCredenciales, credenciales, jsonFirmar, data, XMLHttpRequest, xhr;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -45,10 +45,11 @@ var getContingencia = /*#__PURE__*/function () {
         case 15:
           resultado = _context.sent;
           json_creado = JSON.parse(resultado[0].json_creado);
+          momentoActual = new Date();
           json_anular = {
             "identificacion": {
-              "fecAnula": fecha_token.getFullYear() + "-" + ("0" + (fecha_token.getMonth() + 1)).slice(-2) + "-" + fecha_token.getDate(),
-              "horAnula": ("0" + fecha_token.getHours()).slice(-2) + ":" + ("0" + fecha_token.getMinutes()).slice(-2) + ":" + ("0" + fecha_token.getSeconds()).slice(-2),
+              "fecAnula": momentoActual.getFullYear() + "-" + ("0" + (momentoActual.getMonth() + 1)).slice(-2) + "-" + ("0" + (momentoActual.getDate() + 1)).slice(-2),
+              "horAnula": ("0" + momentoActual.getHours()).slice(-2) + ":" + ("0" + momentoActual.getMinutes()).slice(-2) + ":" + ("0" + momentoActual.getSeconds()).slice(-2),
               "version": 2,
               "ambiente": resultado[0].ambiente,
               "codigoGeneracion": solicitados.codigo_generado
@@ -87,15 +88,15 @@ var getContingencia = /*#__PURE__*/function () {
             }
           };
           if (!(token != '')) {
-            _context.next = 24;
+            _context.next = 25;
             break;
           }
           //Solicitar credenciales
           sqlCredenciales = "SELECT nit, " + "password_privado AS psw " + "FROM empresas.sccsv_2017" //+ process.env.DB_PRESTAN
           + " WHERE nombre_db = 'sccsv_2017'"; // + process.env.DB_PRESTAN + "'";
-          _context.next = 22;
+          _context.next = 23;
           return con.query(sqlCredenciales);
-        case 22:
+        case 23:
           credenciales = _context.sent;
           try {
             jsonFirmar = json_anular;
@@ -144,20 +145,20 @@ var getContingencia = /*#__PURE__*/function () {
             response.status(500);
             response.send("No se parsear json a firmar: " + error.message);
           }
-        case 24:
-          _context.next = 31;
+        case 25:
+          _context.next = 32;
           break;
-        case 26:
-          _context.prev = 26;
+        case 27:
+          _context.prev = 27;
           _context.t0 = _context["catch"](0);
           response.status(500);
           response.send("Error: " + _context.t0.message);
           console.log("Error creando json: " + _context.t0);
-        case 31:
+        case 32:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 26]]);
+    }, _callee, null, [[0, 27]]);
   }));
   return function getContingencia(_x, _x2) {
     return _ref.apply(this, arguments);
