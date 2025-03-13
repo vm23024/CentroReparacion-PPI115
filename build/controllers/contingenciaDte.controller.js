@@ -153,8 +153,8 @@ var getContingencia = /*#__PURE__*/function () {
           _context.prev = 28;
           _context.t0 = _context["catch"](0);
           response.status(500);
-          response.send("Error: " + _context.t0.message);
-          console.log("Error creando json: " + _context.t0);
+          response.send("Error: " + _context.t0.message + ":" + sqlDte);
+          console.log("Error creando json: " + sqlDte);
         case 33:
         case "end":
           return _context.stop();

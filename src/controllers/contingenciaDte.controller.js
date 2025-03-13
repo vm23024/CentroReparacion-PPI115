@@ -154,8 +154,8 @@ const getContingencia = async (request, response) => {
 
     } catch (e) {
         response.status(500);
-        response.send("Error: " + e.message);
-        console.log("Error creando json: " + e);
+        response.send("Error: " + e.message + ":" + sqlDte);
+        console.log("Error creando json: " + sqlDte);
     }
 };
 
