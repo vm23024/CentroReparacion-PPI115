@@ -48,7 +48,7 @@ var getContingencia = /*#__PURE__*/function () {
           momentoActual = new Date();
           json_anular = {
             "identificacion": {
-              "fecAnula": momentoActual.getFullYear() + "-" + ("0" + (momentoActual.getMonth() + 1)).slice(-2) + "-" + ("0" + (momentoActual.getDate() + 1)).slice(-2),
+              "fecAnula": momentoActual.getFullYear() + "-" + ("0" + (momentoActual.getMonth() + 1)).slice(-2) + "-" + ("0" + momentoActual.getDate()).slice(-2),
               "horAnula": ("0" + momentoActual.getHours()).slice(-2) + ":" + ("0" + momentoActual.getMinutes()).slice(-2) + ":" + ("0" + momentoActual.getSeconds()).slice(-2),
               "version": 2,
               "ambiente": resultado[0].ambiente,
@@ -78,8 +78,8 @@ var getContingencia = /*#__PURE__*/function () {
             },
             "motivo": {
               "tipoAnulacion": 2,
-              "motivoAnulacion": solicitados.motivo,
-              "nombreResponsable": solicitados.nombre,
+              "motivoAnulacion": rawurldecode(solicitados.motivo),
+              "nombreResponsable": rawurldecode(solicitados.nombre),
               "tipDocResponsable": "37",
               "numDocResponsable": json_creado.emisor.nit,
               "nombreSolicita": json_creado.emisor.nombre,
