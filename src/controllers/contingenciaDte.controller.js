@@ -38,6 +38,10 @@ const getContingencia = async (request, response) => {
         var resultado = await con.query(sqlDte);
         var json_creado = JSON.parse(resultado[0].json_creado);
         var momentoActual = new Date();
+        if(solicitados.tipo_dte === '03'){
+            json_creado.receptor.tipoDocumento = '36';
+            json_creado.receptor.numDocumento = json_creado.receptor.nit;
+        }
         var json_anular = {
             "identificacion": {
                 "fecAnula": momentoActual.getFullYear() + "-" + ("0" + (momentoActual.getMonth() + 1)).slice(-2) + "-" + ("0" + (momentoActual.getDate())).slice(-2),
@@ -74,8 +78,8 @@ const getContingencia = async (request, response) => {
             "motivo":
             {
                 "tipoAnulacion": 2,
-                "motivoAnulacion": rawurldecode(solicitados.motivo),
-                "nombreResponsable": rawurldecode(solicitados.nombre),
+                "motivoAnulacion": decodeURIComponent(solicitados.motivo),
+                "nombreResponsable": decodeURIComponent(solicitados.nombre),
                 "tipDocResponsable": "37",
                 "numDocResponsable": json_creado.emisor.nit,
                 "nombreSolicita": json_creado.emisor.nombre,

@@ -47,6 +47,10 @@ var getContingencia = /*#__PURE__*/function () {
           resultado = _context.sent;
           json_creado = JSON.parse(resultado[0].json_creado);
           momentoActual = new Date();
+          if (solicitados.tipo_dte === '03') {
+            json_creado.receptor.tipoDocumento = '36';
+            json_creado.receptor.numDocumento = json_creado.receptor.nit;
+          }
           json_anular = {
             "identificacion": {
               "fecAnula": momentoActual.getFullYear() + "-" + ("0" + (momentoActual.getMonth() + 1)).slice(-2) + "-" + ("0" + momentoActual.getDate()).slice(-2),
@@ -79,8 +83,8 @@ var getContingencia = /*#__PURE__*/function () {
             },
             "motivo": {
               "tipoAnulacion": 2,
-              "motivoAnulacion": rawurldecode(solicitados.motivo),
-              "nombreResponsable": rawurldecode(solicitados.nombre),
+              "motivoAnulacion": decodeURIComponent(solicitados.motivo),
+              "nombreResponsable": decodeURIComponent(solicitados.nombre),
               "tipDocResponsable": "37",
               "numDocResponsable": json_creado.emisor.nit,
               "nombreSolicita": json_creado.emisor.nombre,
@@ -89,15 +93,15 @@ var getContingencia = /*#__PURE__*/function () {
             }
           };
           if (!(token != '')) {
-            _context.next = 26;
+            _context.next = 27;
             break;
           }
           //Solicitar credenciales
           sqlCredenciales = "SELECT nit, " + "password_privado AS psw " + "FROM empresas.sccsv_2017" //+ process.env.DB_PRESTAN
           + " WHERE nombre_db = 'sccsv_2017'"; // + process.env.DB_PRESTAN + "'";
-          _context.next = 24;
+          _context.next = 25;
           return con.query(sqlCredenciales);
-        case 24:
+        case 25:
           credenciales = _context.sent;
           try {
             jsonFirmar = json_anular;
@@ -146,20 +150,20 @@ var getContingencia = /*#__PURE__*/function () {
             response.status(500);
             response.send("No se parsear json a firmar: " + error.message);
           }
-        case 26:
-          _context.next = 33;
+        case 27:
+          _context.next = 34;
           break;
-        case 28:
-          _context.prev = 28;
+        case 29:
+          _context.prev = 29;
           _context.t0 = _context["catch"](0);
           response.status(500);
           response.send("Error: " + _context.t0.message + ":" + sqlDte);
           console.log("Error creando json: " + sqlDte);
-        case 33:
+        case 34:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 28]]);
+    }, _callee, null, [[0, 29]]);
   }));
   return function getContingencia(_x, _x2) {
     return _ref.apply(this, arguments);
