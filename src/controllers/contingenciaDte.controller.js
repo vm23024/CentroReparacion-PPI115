@@ -13,7 +13,7 @@ const getContingencia = async (request, response) => {
         const con = await getConnection();
         //Fecha para solicitar o consultar el token a utilizar
         var fecha_token = new Date();
-        //console.log("Fecha tokan: "+fecha_token.getFullYear() + "-" + (fecha_token.getMonth() + 1) + "-" + fecha_token.getDate());
+        //console.log("Hora tokan: "+("0" + fecha_token.getHours()).slice(-2) + ":" + ("0" + fecha_token.getMinutes()).slice(-2) + ":" + ("0" + fecha_token.getSeconds()).slice(-2));
         //Solicitando token
         var token = await getTokenMh(fecha_token.getFullYear() + "-" + (fecha_token.getMonth() + 1) + "-" + fecha_token.getDate());
         //Urls a utilizar para firma y anulacion
@@ -33,19 +33,23 @@ const getContingencia = async (request, response) => {
             + "WHERE codigo_generado = '" + solicitados.codigo_generado + "' "
             + "AND codigo_control = '" + solicitados.codigo_control + "' "
             + "AND tipo_dte = '" + solicitados.tipo_dte + "'";
-        console.log("Sql: " + sqlDte);
+        //console.log("Sql: " + sqlDte);
         //Ejecutando query 
         var resultado = await con.query(sqlDte);
         var json_creado = JSON.parse(resultado[0].json_creado);
-        var momentoActual = new Date();
         if(solicitados.tipo_dte === '03'){
             json_creado.receptor.tipoDocumento = '36';
             json_creado.receptor.numDocumento = json_creado.receptor.nit;
         }
+        if(solicitados.tipo_dte === '14'){
+            json_creado.receptor = json_creado.sujetoExcluido;
+            
+        }
+        var momentoActual = new Date();
         var json_anular = {
             "identificacion": {
                 "fecAnula": momentoActual.getFullYear() + "-" + ("0" + (momentoActual.getMonth() + 1)).slice(-2) + "-" + ("0" + (momentoActual.getDate())).slice(-2),
-                "horAnula": ("0" + momentoActual.getHours()).slice(-2) + ":" + ("0" + momentoActual.getMinutes()).slice(-2) + ":" + ("0" + momentoActual.getSeconds()).slice(-2),
+                "horAnula": ("0" + momentoActual.getHours()).slice(-2) + ":" + ("0" + momentoActual.getMinutes()).slice(-2) + ":" + ("0" + momentoActual.getSeconds()).slice(-2) ,
                 "version": 2,
                 "ambiente": resultado[0].ambiente,
                 "codigoGeneracion": solicitados.codigo_generado
@@ -117,7 +121,7 @@ const getContingencia = async (request, response) => {
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         let respuesta = JSON.parse(xhr.responseText);
 
-                        //console.log("Firmas:"+Object.values(respuesta));
+                        console.log("JSON:"+JSON.stringify(jsonFirmar));
                         //response.json(respuesta);
                         /* let fechaProcesado = respuesta.fhProcesamiento.split(' ');
                          let fechaHora = fechaProcesado[0].split('/');*/
@@ -138,6 +142,7 @@ const getContingencia = async (request, response) => {
                             });
                         }).catch((err) => {
                             console.log(err);
+                            console.log("JsonAnulacion:" + jsonFirmar);
                             response.send(err);
                         })
 
@@ -158,8 +163,9 @@ const getContingencia = async (request, response) => {
 
     } catch (e) {
         response.status(500);
-        response.send("Error: " + e.message + ":" + sqlDte);
-        console.log("Error creando json: " + sqlDte);
+        response.send("Error: " + e.message);
+        console.log("Error creando json: " + e);
+        console.log("Json creado: "+ json_creado);
     }
 };
 

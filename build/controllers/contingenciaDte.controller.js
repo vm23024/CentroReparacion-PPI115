@@ -27,7 +27,7 @@ var getContingencia = /*#__PURE__*/function () {
         case 4:
           con = _context.sent;
           //Fecha para solicitar o consultar el token a utilizar
-          fecha_token = new Date(); //console.log("Fecha tokan: "+fecha_token.getFullYear() + "-" + (fecha_token.getMonth() + 1) + "-" + fecha_token.getDate());
+          fecha_token = new Date(); //console.log("Hora tokan: "+("0" + fecha_token.getHours()).slice(-2) + ":" + ("0" + fecha_token.getMinutes()).slice(-2) + ":" + ("0" + fecha_token.getSeconds()).slice(-2));
           //Solicitando token
           _context.next = 8;
           return (0, _getTokenMh.getTokenMh)(fecha_token.getFullYear() + "-" + (fecha_token.getMonth() + 1) + "-" + fecha_token.getDate());
@@ -38,19 +38,21 @@ var getContingencia = /*#__PURE__*/function () {
         case 11:
           urlFirma = _context.sent;
           //Consulta para extraer firma de dte a invalidar
-          sqlDte = "SELECT codigo_generado," + "codigo_control," + "tipo_dte," + "firma_recibida, " + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.ambiente')), '01') AS ambiente," + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.version')), 1) AS version, " + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.tipoDte')), '" + solicitados.tipo_dte + "') AS tipo_dte, " + "json_creado, " + "sello_recibido " + "FROM scc_dtes_creados " + "WHERE codigo_generado = '" + solicitados.codigo_generado + "' " + "AND codigo_control = '" + solicitados.codigo_control + "' " + "AND tipo_dte = '" + solicitados.tipo_dte + "'";
-          console.log("Sql: " + sqlDte);
+          sqlDte = "SELECT codigo_generado," + "codigo_control," + "tipo_dte," + "firma_recibida, " + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.ambiente')), '01') AS ambiente," + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.version')), 1) AS version, " + "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(json_creado, '$.identificacion.tipoDte')), '" + solicitados.tipo_dte + "') AS tipo_dte, " + "json_creado, " + "sello_recibido " + "FROM scc_dtes_creados " + "WHERE codigo_generado = '" + solicitados.codigo_generado + "' " + "AND codigo_control = '" + solicitados.codigo_control + "' " + "AND tipo_dte = '" + solicitados.tipo_dte + "'"; //console.log("Sql: " + sqlDte);
           //Ejecutando query 
-          _context.next = 16;
+          _context.next = 15;
           return con.query(sqlDte);
-        case 16:
+        case 15:
           resultado = _context.sent;
           json_creado = JSON.parse(resultado[0].json_creado);
-          momentoActual = new Date();
           if (solicitados.tipo_dte === '03') {
             json_creado.receptor.tipoDocumento = '36';
             json_creado.receptor.numDocumento = json_creado.receptor.nit;
           }
+          if (solicitados.tipo_dte === '14') {
+            json_creado.receptor = json_creado.sujetoExcluido;
+          }
+          momentoActual = new Date();
           json_anular = {
             "identificacion": {
               "fecAnula": momentoActual.getFullYear() + "-" + ("0" + (momentoActual.getMonth() + 1)).slice(-2) + "-" + ("0" + momentoActual.getDate()).slice(-2),
@@ -124,8 +126,7 @@ var getContingencia = /*#__PURE__*/function () {
               //console.log("Entrando en onload");
               if (xhr.readyState == 4 && xhr.status == 200) {
                 var respuesta = JSON.parse(xhr.responseText);
-
-                //console.log("Firmas:"+Object.values(respuesta));
+                console.log("JSON:" + JSON.stringify(jsonFirmar));
                 //response.json(respuesta);
                 /* let fechaProcesado = respuesta.fhProcesamiento.split(' ');
                  let fechaHora = fechaProcesado[0].split('/');*/
@@ -137,6 +138,7 @@ var getContingencia = /*#__PURE__*/function () {
                   });
                 })["catch"](function (err) {
                   console.log(err);
+                  console.log("JsonAnulacion:" + jsonFirmar);
                   response.send(err);
                 });
               } else {
@@ -151,15 +153,16 @@ var getContingencia = /*#__PURE__*/function () {
             response.send("No se parsear json a firmar: " + error.message);
           }
         case 27:
-          _context.next = 34;
+          _context.next = 35;
           break;
         case 29:
           _context.prev = 29;
           _context.t0 = _context["catch"](0);
           response.status(500);
-          response.send("Error: " + _context.t0.message + ":" + sqlDte);
-          console.log("Error creando json: " + sqlDte);
-        case 34:
+          response.send("Error: " + _context.t0.message);
+          console.log("Error creando json: " + _context.t0);
+          console.log("Json creado: " + json_creado);
+        case 35:
         case "end":
           return _context.stop();
       }
