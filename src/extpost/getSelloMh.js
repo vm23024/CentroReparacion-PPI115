@@ -65,7 +65,9 @@ const getSelloMh = async (token,
                     let respuesta2 = JSON.parse(xhr.responseText);
                     let fechaProcesado = respuesta2.fhProcesamiento.split(' ');
                     let fechaHora = fechaProcesado[0].split('/');
-                    if (respuesta2.codigoMsg === '095' || respuesta2.codigoMsg === '097' || respuesta2.codigoMsg === '802' || respuesta2.codigoMsg === '804') {
+                    if (respuesta2.codigoMsg === '095' || respuesta2.codigoMsg === '097' || respuesta2.codigoMsg === '802' || respuesta2.codigoMsg === '804' || 
+                        respuesta2.codigoMsg === '099'
+                    ) {
                         respuesta2.estado = 'PENDIENTE';
                     }
                     let actualizar = "UPDATE scc_dtes_creados "
