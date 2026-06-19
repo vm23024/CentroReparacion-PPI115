@@ -38,7 +38,7 @@ const getSelloMh = async (token,
                 //console.log(xhr.responseText);
                 //resolve(xhr.responseText);
                 try {
-                    if (respuesta.codigoMsg === '095' || respuesta.codigoMsg === '097') {
+                    if (respuesta.codigoMsg === '095' || respuesta.codigoMsg === '097' || respuesta.codigoMsg === '099') {
                         respuesta.estado = 'PENDIENTE';
                     }
                     let actualizar = "UPDATE scc_dtes_creados "

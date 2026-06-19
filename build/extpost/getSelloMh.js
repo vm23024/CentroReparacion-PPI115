@@ -47,7 +47,7 @@ var getSelloMh = /*#__PURE__*/function () {
                 //console.log(xhr.responseText);
                 //resolve(xhr.responseText);
                 try {
-                  if (respuesta.codigoMsg === '095' || respuesta.codigoMsg === '097') {
+                  if (respuesta.codigoMsg === '095' || respuesta.codigoMsg === '097' || respuesta.codigoMsg === '099') {
                     respuesta.estado = 'PENDIENTE';
                   }
                   var actualizar = "UPDATE scc_dtes_creados " + "SET sello_recibido = '" + respuesta.selloRecibido + "'" + ", estado = '" + respuesta.estado + "'" + ", fecha_procesado = '" + fechaHora[2] + "-" + fechaHora[1] + "-" + fechaHora[0] + " " + fechaProcesado[1] + "'" + ", observaciones = 'codigo: " + respuesta.codigoMsg + "\n\rdescripcionMensaje: " + respuesta.descripcionMsg + "\n\robservaciones: " + respuesta.observaciones + "'" + ",firma_recibida = '" + dteFirmado + "'" + " WHERE codigo_generado = '" + codigoGen + "'" + " AND tipo_dte = '" + tipoDte + "'" + " AND codigo_control = '" + codigoControl + "'";
