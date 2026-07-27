@@ -7,7 +7,7 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 var getAnulacion = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(token, dteFirmado, ambiente, tipoDte, codigoControl, version, codigoGen) {
+  var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(token, dteFirmado, ambiente, tipoDte, codigoControl, version, codigoGen, codAnulacion) {
     var conexion, urlAnular;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -47,7 +47,7 @@ var getAnulacion = /*#__PURE__*/function () {
                 //console.log(xhr.responseText);
                 //resolve(xhr.responseText);
                 try {
-                  var actualizar = "UPDATE scc_dtes_creados " + "SET estado = CONCAT(estado, '(Anulado)')" + ", observaciones = CONCAT(observaciones, 'Anulacion procesada con sello: " + respuesta.selloRecibido + " \t\r" + "con fecha: " + fechaHora[2] + "-" + fechaHora[1] + "-" + fechaHora[0] + " " + fechaProcesado[1] + "')" + " WHERE codigo_generado = '" + codigoGen + "'" + " AND tipo_dte = '" + tipoDte + "'" + " AND codigo_control = '" + codigoControl + "'";
+                  var actualizar = "UPDATE scc_dtes_creados " + "SET estado = CONCAT(estado, '(Anulado)')" + ", observaciones = CONCAT(observaciones, 'Anulacion procesada con sello: " + respuesta.selloRecibido + " \t\r" + "con fecha: " + fechaHora[2] + "-" + fechaHora[1] + "-" + fechaHora[0] + " " + fechaProcesado[1] + "\n " + "codigo generacion anulacion: " + codAnulacion + "')" + " WHERE codigo_generado = '" + codigoGen + "'" + " AND tipo_dte = '" + tipoDte + "'" + " AND codigo_control = '" + codigoControl + "'";
                   var actualizado = conexion.query(actualizar);
                   //console.log("Se anulo con sello: " + respuesta.selloRecibido);
                   resolve(respuesta.selloRecibido);
@@ -68,7 +68,7 @@ var getAnulacion = /*#__PURE__*/function () {
       }
     }, _callee);
   }));
-  return function getAnulacion(_x, _x2, _x3, _x4, _x5, _x6, _x7) {
+  return function getAnulacion(_x, _x2, _x3, _x4, _x5, _x6, _x7, _x8) {
     return _ref.apply(this, arguments);
   };
 }();

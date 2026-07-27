@@ -157,7 +157,8 @@ const getContingencia = async (request, response) => {
                             solicitados.tipo_dte,
                             solicitados.codigo_control,
                             jsonFirmar.identificacion.version,
-                            jsonFirmar.identificacion.codigoGeneracion
+                            jsonFirmar.identificacion.codigoGeneracion,
+                            codigoGeneracion
                         );
                         anulacion.then(async (value) => {
                             let insAnulacion =

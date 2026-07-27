@@ -7,7 +7,8 @@ const getAnulacion = async (token,
     tipoDte,
     codigoControl,
     version,
-    codigoGen) => {
+    codigoGen,
+    codAnulacion) => {
     const conexion = await getConnection();
     //const url = await getUrlServicio('AUTORIZAR', 'sccsv_2017');
     const urlAnular = await getUrlServicio('ANULAR', 'sccsv_2017');
@@ -43,7 +44,8 @@ const getAnulacion = async (token,
                         + "SET estado = CONCAT(estado, '(Anulado)')"
                         + ", observaciones = CONCAT(observaciones, 'Anulacion procesada con sello: "
                         + respuesta.selloRecibido+ " \t\r"
-                        + "con fecha: "+ fechaHora[2] + "-" + fechaHora[1] + "-" + fechaHora[0] + " " + fechaProcesado[1] + "')"
+                        + "con fecha: "+ fechaHora[2] + "-" + fechaHora[1] + "-" + fechaHora[0] + " " + fechaProcesado[1] + "\n "
+                        + "codigo generacion anulacion: "+codAnulacion+"')"
                         + " WHERE codigo_generado = '" + codigoGen + "'"
                         + " AND tipo_dte = '" + tipoDte + "'"
                         + " AND codigo_control = '" + codigoControl + "'";

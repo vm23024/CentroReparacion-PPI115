@@ -158,7 +158,7 @@ var getContingencia = /*#__PURE__*/function () {
                 /* let fechaProcesado = respuesta.fhProcesamiento.split(' ');
                  let fechaHora = fechaProcesado[0].split('/');*/
 
-                var anulacion = (0, _getAnulacion.getAnulacion)(token, respuesta.body, jsonFirmar.identificacion.ambiente, solicitados.tipo_dte, solicitados.codigo_control, jsonFirmar.identificacion.version, jsonFirmar.identificacion.codigoGeneracion);
+                var anulacion = (0, _getAnulacion.getAnulacion)(token, respuesta.body, jsonFirmar.identificacion.ambiente, solicitados.tipo_dte, solicitados.codigo_control, jsonFirmar.identificacion.version, jsonFirmar.identificacion.codigoGeneracion, codigoGeneracion);
                 anulacion.then(/*#__PURE__*/function () {
                   var _ref2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(value) {
                     var insAnulacion, insertandoAnulacion, fechaEmi, _fechaEmi$split, _fechaEmi$split2, anio, mes, dia, carpetaDestino, nombreArchivo, rutaCompletaArchivo;
