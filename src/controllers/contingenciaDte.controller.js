@@ -3,6 +3,17 @@ import { getTokenMh } from '../extpost/getTokenMh';
 import { getAnulacion } from '../extpost/getAnulacion';
 import { getUrlServicio } from '../extpost/getUrlServicio';
 
+import { promises as fs } from "fs";
+import path from "path";
+import zlib from "zlib";
+import { promisify } from "util";
+import { json } from 'stream/consumers';
+
+// Convertir funciones zlib basadas en callbacks a Promesas
+const gunzip = promisify(zlib.gunzip);
+const gzip = promisify(zlib.gzip);
+
+
 
 const getContingencia = async (request, response) => {
     try {
@@ -37,6 +48,7 @@ const getContingencia = async (request, response) => {
         //Ejecutando query 
         var resultado = await con.query(sqlDte);
         var json_creado = JSON.parse(resultado[0].json_creado);
+        const codigoGeneracion = config.generarCodigoUid4();
         if(solicitados.tipo_dte === '03'){
             json_creado.receptor.tipoDocumento = '36';
             json_creado.receptor.numDocumento = json_creado.receptor.nit;
@@ -61,7 +73,7 @@ const getContingencia = async (request, response) => {
                 "horAnula": ("0" + momentoActual.getHours()).slice(-2) + ":" + ("0" + momentoActual.getMinutes()).slice(-2) + ":" + ("0" + momentoActual.getSeconds()).slice(-2) ,
                 "version": 2,
                 "ambiente": resultado[0].ambiente,
-                "codigoGeneracion": solicitados.codigo_generado
+                "codigoGeneracion": codigoGeneracion
             },
             "emisor":
             {
@@ -86,7 +98,9 @@ const getContingencia = async (request, response) => {
                 "selloRecibido": resultado[0].sello_recibido,
                 "numeroControl": json_creado.identificacion.numeroControl,
                 "fecEmi": json_creado.identificacion.fecEmi,
-                "montoIva": parseFloat(json_creado.resumen.totalIva)
+                "montoIva": parseFloat(json_creado.resumen.totalIva),
+                "correo": json_creado.receptor.correo,
+                "telefono": json_creado.receptor.telefono
             },
             "motivo":
             {
@@ -145,7 +159,96 @@ const getContingencia = async (request, response) => {
                             jsonFirmar.identificacion.version,
                             jsonFirmar.identificacion.codigoGeneracion
                         );
-                        anulacion.then((value) => {
+                        anulacion.then(async (value) => {
+                            let insAnulacion =
+                                "INSERT INTO " +
+                                "scc_dtes_anulados(" +
+                                "codG_anulacion, " +
+                                "codG_factura, " +
+                                "codC_factura, " +
+                                "tipoDte_factura, " +
+                                "motivo, " +
+                                "createdBy, " +
+                                "createdDate, " +
+                                "firma, " +
+                                "sello_anulacion, " +
+                                "fecha_procesado) " +
+                                "VALUES('" +
+                                codigoGeneracion +
+                                "','" +
+                                solicitados.codigo_generado +
+                                "', '" +
+                                solicitados.codigo_control +
+                                "', '" +
+                                solicitados.tipo_dte +
+                                "','" +
+                                decodeURIComponent(solicitados.motivo) +
+                                "', '" +
+                                decodeURIComponent(solicitados.nombre) +
+                                "', '" +
+                                momentoActual.getFullYear() +
+                                "-" +
+                                ("0" + (momentoActual.getMonth() + 1)).slice(-2) +
+                                "-" +
+                                ("0" + momentoActual.getDate()).slice(-2) +
+                                " " +
+                                (" 0" + momentoActual.getHours()).slice(-2) +
+                                ":" +
+                                ("0" + momentoActual.getMinutes()).slice(-2) +
+                                ":" +
+                                ("0" + momentoActual.getSeconds()).slice(-2) +
+                                "', '" +
+                                respuesta.body +
+                                "', '" +
+                                value +
+                                "', '" +
+                                momentoActual.getFullYear() +
+                                "-" +
+                                ("0" + (momentoActual.getMonth() + 1)).slice(-2) +
+                                "-" +
+                                ("0" + momentoActual.getDate()).slice(-2) +
+                                " " +
+                                (" 0" + momentoActual.getHours()).slice(-2) +
+                                ":" +
+                                ("0" + momentoActual.getMinutes()).slice(-2) +
+                                ":" +
+                                ("0" + momentoActual.getSeconds()).slice(-2) +
+                                "')";
+                            var insertandoAnulacion = await con.query(insAnulacion);
+                            if (insertandoAnulacion) {
+                                ///Funcion para crear y guardar DTE firmado y sellado
+                                //Agregando sello a objeto json
+                                json_anular.sello = value;
+                                json_anular.firma = respuesta.body;
+                                // 1. Extraer año, mes y día desde fecEmi (Formato esperado: "YYYY-MM-DD")
+                                console.log("Se inserto en tabla de anulaciones");
+                                const fechaEmi = json_anular.documento.fecEmi;
+                                const [anio, mes, dia] = fechaEmi.split("-");
+            
+                                // 2. Construir la ruta de carpetas dinámicas de forma absoluta
+                                const carpetaDestino = path.join(
+                                "/srv/http/huella/jsonDTEs",
+                                anio,
+                                mes,
+                                dia,
+                                );
+            
+                                // 3. Crear las carpetas si no existen (recursive: true maneja todo el árbol automáticamente)
+                                await fs.mkdir(carpetaDestino, { recursive: true });
+            
+                                // 4. Definir el nombre del archivo y guardarlo
+                                const nombreArchivo = `anulacion-${codigoGeneracion}.json`;
+                                const rutaCompletaArchivo = path.join(
+                                carpetaDestino,
+                                nombreArchivo,
+                                );
+            
+                                await fs.writeFile(
+                                rutaCompletaArchivo,
+                                JSON.stringify(json_anular, null, 2),
+                                "utf8",
+                                );
+                            }
                             response.json({
                                 "selloAnulacion": value
                             });
