@@ -2,6 +2,7 @@ import { getConnection } from '../database/database';
 import { getTokenMh } from '../extpost/getTokenMh';
 import { getAnulacion } from '../extpost/getAnulacion';
 import { getUrlServicio } from '../extpost/getUrlServicio';
+import config from "../config.js";
 
 import { promises as fs } from "fs";
 import path from "path";

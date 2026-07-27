@@ -9,6 +9,7 @@ var _database = require("../database/database");
 var _getTokenMh = require("../extpost/getTokenMh");
 var _getAnulacion = require("../extpost/getAnulacion");
 var _getUrlServicio = require("../extpost/getUrlServicio");
+var _config = _interopRequireDefault(require("../config.js"));
 var _fs = require("fs");
 var _path = _interopRequireDefault(require("path"));
 var _zlib = _interopRequireDefault(require("zlib"));
@@ -60,7 +61,7 @@ var getContingencia = /*#__PURE__*/function () {
         case 15:
           resultado = _context2.sent;
           json_creado = JSON.parse(resultado[0].json_creado);
-          codigoGeneracion = config.generarCodigoUid4();
+          codigoGeneracion = _config["default"].generarCodigoUid4();
           if (solicitados.tipo_dte === '03') {
             json_creado.receptor.tipoDocumento = '36';
             json_creado.receptor.numDocumento = json_creado.receptor.nit;
