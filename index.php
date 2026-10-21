@@ -51,7 +51,7 @@ if (is_numeric($ultimaPalabra)) {
 
 // Quitar la "s" final si la petición viene en plural (ej: "ordenes-reparacion")
 // Para español, si termina en "es", removemos "es", si no, solo la "s"
-if (substr($ultimaPalabra, -2) === 'es') {
+if (substr($ultimaPalabra, -2) === 'es' && $ultimaPalabra != 'clientes') {
     $entidadBase = substr($ultimaPalabra, 0, -2);
 } else {
     $entidadBase = rtrim($ultimaPalabra, 's'); 
