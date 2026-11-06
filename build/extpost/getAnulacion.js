@@ -17,7 +17,7 @@ var getAnulacion = /*#__PURE__*/function () {
         case 2:
           conexion = _context.sent;
           _context.next = 5;
-          return (0, _getUrlServicio.getUrlServicio)('ANULAR', 'sccsv_2017');
+          return (0, _getUrlServicio.getUrlServicio)('ANULAR', 'sccsv_2027');
         case 5:
           urlAnular = _context.sent;
           return _context.abrupt("return", new Promise(function (resolve, reject) {

@@ -11,7 +11,7 @@ const getAnulacion = async (token,
     codAnulacion) => {
     const conexion = await getConnection();
     //const url = await getUrlServicio('AUTORIZAR', 'sccsv_2017');
-    const urlAnular = await getUrlServicio('ANULAR', 'sccsv_2017');
+    const urlAnular = await getUrlServicio('ANULAR', 'sccsv_2027');
     return new Promise((resolve, reject) => {
         let data = JSON.stringify({
             "ambiente": ambiente,
