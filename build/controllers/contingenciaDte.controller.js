@@ -103,7 +103,7 @@ var getContingencia = /*#__PURE__*/function () {
             emisor: {
               nit: json_creado.emisor.nit,
               nombre: json_creado.emisor.nombre,
-              tipoEstablecimiento: json_creado.emisor.tipoEstablecimiento,
+              tipoEstablecimiento: "02",
               telefono: json_creado.emisor.telefono.replace("-", ""),
               correo: json_creado.emisor.correo,
               codEstable: json_creado.emisor.codEstable,
