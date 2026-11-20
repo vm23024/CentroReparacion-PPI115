@@ -64,7 +64,7 @@ const getContingencia = async (request, response) => {
     const mes = ("0" + (fechaEmisonOriginal.getMonth() + 1)).slice(-2);
     // Aseguramos los dos dígitos para el día (ej: "25")
     const diaLimpio = ("0" + fechaEmisonOriginal.getDate()).slice(-2);
-    
+    //
     // 4. Construir la ruta exacta del archivo generado por PHP en Linux
     const carpetaDestino = path.join("/srv/http/huella/jsonDTEs", anio, mes, diaLimpio, `${solicitados.codigo_generado}.json.gz`);
     // 1. Leer el archivo binario comprimido de PHP utilizando await de forma segura

@@ -62,7 +62,8 @@ var getContingencia = /*#__PURE__*/function () {
           fechaEmisonOriginal = new Date(resultado[0].fecha_emision); // 3. Extraer los componentes de la fecha de forma segura y limpia
           anio = fechaEmisonOriginal.getFullYear().toString(); // El mes inicia en 0 (Enero), sumamos 1 y aseguramos los dos dígitos (ej: "07")
           mes = ("0" + (fechaEmisonOriginal.getMonth() + 1)).slice(-2); // Aseguramos los dos dígitos para el día (ej: "25")
-          diaLimpio = ("0" + fechaEmisonOriginal.getDate()).slice(-2); // 4. Construir la ruta exacta del archivo generado por PHP en Linux
+          diaLimpio = ("0" + fechaEmisonOriginal.getDate()).slice(-2); //
+          // 4. Construir la ruta exacta del archivo generado por PHP en Linux
           carpetaDestino = _path["default"].join("/srv/http/huella/jsonDTEs", anio, mes, diaLimpio, "".concat(solicitados.codigo_generado, ".json.gz")); // 1. Leer el archivo binario comprimido de PHP utilizando await de forma segura
           _context2.next = 23;
           return _fs.promises.readFile(carpetaDestino);
